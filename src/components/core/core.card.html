@@ -1,0 +1,64 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Core — buttons, badges, glass, wells" subtitle="Button · Badge · GlassCard · IconWell" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body{margin:0;background:var(--surface-page);padding:26px;font-family:var(--font-en);position:relative;overflow:hidden}
+  .glow{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(90px);opacity:.35}
+  .gc{background:var(--hmr-cyan);top:-100px;left:-60px}
+  .gi{background:var(--hmr-indigo);bottom:-120px;right:-40px}
+  #root{position:relative;z-index:2;display:flex;flex-direction:column;gap:18px}
+  .lbl{color:var(--text-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div class="glow gc"></div><div class="glow gi"></div>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, Badge, GlassCard, IconWell } = window.HMRDesignSystem_2cb0f9;
+  function Demo() {
+    return (
+      <React.Fragment>
+        <div>
+          <div className="lbl">Buttons</div>
+          <div className="row">
+            <Button variant="primary">Start a chat</Button>
+            <Button variant="secondary">Learn more</Button>
+            <Button variant="ghost">Skip</Button>
+            <Button variant="primary" size="sm">Small</Button>
+            <Button variant="primary" disabled>Disabled</Button>
+          </div>
+        </div>
+        <div>
+          <div className="lbl">Badges</div>
+          <div className="row">
+            <Badge tone="brand">Smart Mobile Advisor</Badge>
+            <Badge tone="success" dot>Knowledge base live</Badge>
+            <Badge tone="warning">Beta</Badge>
+            <Badge tone="neutral">v2026</Badge>
+          </div>
+        </div>
+        <div>
+          <div className="lbl">Glass card · Icon wells</div>
+          <div className="row" style={{alignItems:'stretch'}}>
+            <GlassCard style={{maxWidth:300}}>
+              <div className="row" style={{gap:10,marginBottom:10}}>
+                <IconWell accent="cyan" size={40}>◈</IconWell>
+                <strong style={{color:'var(--text-body)'}}>Used phone guidance</strong>
+              </div>
+              <span style={{color:'var(--text-muted)',fontSize:13}}>Fair-price checks, registry status, counterfeit-part detection.</span>
+            </GlassCard>
+            <IconWell accent="cyan">◈</IconWell>
+            <IconWell accent="blue">◆</IconWell>
+            <IconWell accent="indigo">●</IconWell>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body></html>

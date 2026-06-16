@@ -1,0 +1,80 @@
+/* ============================================================
+   HMR — Base reset, document shell, RTL, and shared utilities.
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Bilingual: Persian swaps face + flips direction ---- */
+body[data-lang="fa"] { font-family: var(--font-fa); direction: rtl; }
+body[data-lang="fa"] .en { display: none !important; }
+body[data-lang="en"] .fa { display: none !important; }
+
+/* ============================================================
+   Ambient background: neural particle canvas + glow blobs
+   ============================================================ */
+#particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.glow {
+  position: fixed; border-radius: 50%;
+  filter: var(--blur-glow); opacity: var(--glow-opacity);
+  z-index: 0; pointer-events: none;
+}
+.glow-1 { width: 460px; height: 460px; background: var(--glow-cyan);   top: -120px; left: -100px; }
+.glow-2 { width: 420px; height: 420px; background: var(--glow-indigo); bottom: -140px; right: -120px; }
+.glow-3 { width: 320px; height: 320px; background: var(--glow-blue);   top: 40%; left: 60%; opacity: var(--glow-opacity-dim); }
+
+/* ============================================================
+   Layout helpers
+   ============================================================ */
+.hmr-wrap {
+  position: relative; z-index: 2;
+  max-width: var(--wrap-max); margin: 0 auto; padding: 0 var(--wrap-pad);
+}
+
+/* ============================================================
+   Utility: gradient text (the FIXED, precise version)
+   Tight blue gradient + explicit text-fill + 100% size so the
+   clip is crisp at every weight, incl. Vazirmatn Persian glyphs.
+   ============================================================ */
+.hmr-gradient-text {
+  background: var(--gradient-text);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* keep descenders/diacritics from clipping on RTL glyphs */
+  padding-bottom: 0.04em;
+  /* nudge anti-aliasing so the fill reads cleanly on dark glass */
+  text-shadow: 0 0 24px rgba(0, 212, 255, 0.18);
+}
+
+/* ============================================================
+   Utility: glass surface
+   ============================================================ */
+.hmr-glass {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #particles { display: none; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

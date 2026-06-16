@@ -1,0 +1,22 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HMR — Smart Mobile Advisor">
+  <defs>
+    <linearGradient id="lkOrb" x1="18" y1="22" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ce1ff"></stop>
+      <stop offset="0.45" stop-color="#2f6bff"></stop>
+      <stop offset="1" stop-color="#6366f1"></stop>
+    </linearGradient>
+    <linearGradient id="lkText" x1="116" y1="40" x2="300" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ce1ff"></stop>
+      <stop offset="0.6" stop-color="#3b82f6"></stop>
+      <stop offset="1" stop-color="#6366f1"></stop>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0,2)">
+    <circle cx="58" cy="58" r="38" fill="url(#lkOrb)"></circle>
+    <g transform="rotate(-7 58 50)">
+      <ellipse cx="58" cy="50" rx="34.5" ry="20" fill="none" stroke="#05070f" stroke-width="5.2"></ellipse>
+    </g>
+  </g>
+  <text x="112" y="62" font-family="&#39;Space Grotesk&#39;, system-ui, sans-serif" font-size="46" font-weight="700" letter-spacing="0.02em" fill="url(#lkText)">HMR</text>
+  <text x="114" y="90" font-family="&#39;Space Grotesk&#39;, system-ui, sans-serif" font-size="13.5" font-weight="500" letter-spacing="0.16em" fill="#8a96b3">SMART MOBILE ADVISOR</text>
+</svg>

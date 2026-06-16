@@ -1,0 +1,46 @@
+/* ============================================================
+   HMR — Typography tokens
+   Latin / display / numerals → Space Grotesk (geometric, techy).
+   Persian / Arabic body      → Vazirmatn (self-hosted variable).
+   The site is bilingual + RTL-aware: body[data-lang="fa"] swaps
+   the stack and flips direction.
+   ============================================================ */
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Space Grotesk', 'Vazirmatn', system-ui, sans-serif;
+  --font-en:      'Space Grotesk', system-ui, sans-serif;
+  --font-fa:      'Vazirmatn', 'Vazirmatn Static', system-ui, sans-serif;
+  --font-body:    var(--font-en);
+  --font-mono:    'Space Grotesk', ui-monospace, 'SF Mono', monospace;
+
+  /* ---- Weights ---- */
+  --fw-light:    300; /* @kind font */
+  --fw-regular:  400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+  --fw-black:    900; /* @kind font */
+
+  /* ---- Type scale (fluid where it matters) ---- */
+  --fs-display:  clamp(2.3rem, 6vw, 4rem); /* @kind font */
+  --fs-h1:       clamp(2rem, 5vw, 3rem); /* @kind font */
+  --fs-h2:       1.6rem; /* @kind font */
+  --fs-h3:       1.15rem; /* @kind font */
+  --fs-lead:     clamp(1rem, 2.2vw, 1.2rem); /* @kind font */
+  --fs-body:     0.95rem; /* @kind font */
+  --fs-sm:       0.88rem; /* @kind font */
+  --fs-xs:       0.8rem; /* @kind font */
+  --fs-badge:    0.78rem; /* @kind font */
+
+  /* ---- Line heights ---- */
+  --lh-tight:   1.08; /* @kind font */
+  --lh-snug:    1.3; /* @kind font */
+  --lh-body:    1.65; /* @kind font */
+  --lh-relaxed: 1.8; /* @kind font */
+
+  /* ---- Letter spacing ---- */
+  --ls-logo:    0.04em; /* @kind font */
+  --ls-badge:   0.1em; /* @kind font */
+  --ls-caps:    0.06em; /* @kind font */
+  --ls-normal:  0; /* @kind font */
+}

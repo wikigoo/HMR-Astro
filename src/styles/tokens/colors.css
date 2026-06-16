@@ -1,0 +1,83 @@
+/* ============================================================
+   HMR — Color tokens
+   Theme: dark neon-blue glassmorphism.
+   The original site mixed cyan + pink + purple; the refined
+   system is BLUE-dominant — cyan → electric blue → indigo —
+   with pink/violet demoted to rare spectrum accents (logo only).
+   ============================================================ */
+:root {
+  /* ---- Base / navy ramp (page → elevated surfaces) ---- */
+  --hmr-navy-950: #05070f;   /* deepest page base */
+  --hmr-navy-900: #070b16;
+  --hmr-navy-850: #0a0f1f;   /* original --bg-2 */
+  --hmr-navy-800: #0e1426;
+  --hmr-navy-700: #131c34;
+  --hmr-navy-600: #1b2746;
+
+  /* ---- Neon ramp (the brand's light) ---- */
+  --hmr-cyan:        #00d4ff;  /* signature neon — keep */
+  --hmr-cyan-soft:   #5ce1ff;
+  --hmr-blue:        #2f6bff;  /* electric blue — new core */
+  --hmr-blue-bright: #3b82f6;
+  --hmr-indigo:      #6366f1;  /* cool violet-blue, tamed */
+  --hmr-violet:      #7c5cff;  /* spectrum accent, sparing */
+  --hmr-pink:        #ff2d78;  /* legacy accent, logo only */
+  --hmr-amber:       #f6b73c;  /* logo top arc only */
+
+  /* ---- Text ---- */
+  --hmr-text:      #eaf2ff;
+  --hmr-text-2:    #b9c6e4;
+  --hmr-muted:     #8a96b3;
+  --hmr-dim:       #56627f;
+  --hmr-on-accent: #05070f;   /* dark ink on neon fills */
+
+  /* ---- Glass surfaces (translucent — backdrop-blur intended) ---- */
+  --hmr-glass:        rgba(18, 26, 48, 0.55);
+  --hmr-glass-strong: rgba(20, 30, 56, 0.72);
+  --hmr-glass-light:  rgba(255, 255, 255, 0.045);
+  --hmr-glass-icon:   rgba(0, 212, 255, 0.08);  /* tinted icon wells */
+
+  /* ---- Borders / hairlines ---- */
+  --hmr-border:        rgba(0, 212, 255, 0.18);  /* signature cyan hairline */
+  --hmr-border-soft:   rgba(255, 255, 255, 0.06);
+  --hmr-border-glow:   rgba(0, 212, 255, 0.45);  /* hover / focus */
+  --hmr-border-blue:   rgba(47, 107, 255, 0.30);
+
+  /* ---- Semantic status ---- */
+  --hmr-success: #34e0a1;
+  --hmr-warning: #f6b73c;
+  --hmr-danger:  #ff5470;
+
+  /* =========================================================
+     Semantic aliases — reference these in components / kits
+     ========================================================= */
+  --surface-page:     var(--hmr-navy-950);
+  --surface-page-2:   var(--hmr-navy-850);
+  --surface-card:     var(--hmr-glass);
+  --surface-card-2:   var(--hmr-glass-strong);
+  --surface-well:     var(--hmr-glass-icon);
+
+  --border-subtle:    var(--hmr-border);
+  --border-hairline:  var(--hmr-border-soft);
+  --border-glow:      var(--hmr-border-glow);
+
+  --text-body:        var(--hmr-text);
+  --text-secondary:   var(--hmr-text-2);
+  --text-muted:       var(--hmr-muted);
+  --text-on-accent:   var(--hmr-on-accent);
+
+  --accent:           var(--hmr-cyan);
+  --accent-2:         var(--hmr-blue);
+  --accent-3:         var(--hmr-indigo);
+
+  /* ---- Brand gradients (blue-dominant, smooth, clean for text-clip) ---- */
+  --gradient-brand:  linear-gradient(100deg, var(--hmr-cyan) 0%, var(--hmr-blue) 52%, var(--hmr-indigo) 100%);
+  --gradient-cta:    linear-gradient(100deg, var(--hmr-cyan) 0%, var(--hmr-blue-bright) 100%);
+  --gradient-text:   linear-gradient(95deg, var(--hmr-cyan-soft) 0%, var(--hmr-blue-bright) 60%, var(--hmr-indigo) 100%);
+  --gradient-spectrum: linear-gradient(120deg, var(--hmr-amber), var(--hmr-pink) 38%, var(--hmr-cyan) 72%, var(--hmr-blue));
+
+  /* ---- Ambient glow blobs ---- */
+  --glow-cyan:   var(--hmr-cyan);
+  --glow-blue:   var(--hmr-blue);
+  --glow-indigo: var(--hmr-indigo);
+}

@@ -1,0 +1,214 @@
+{/*
+  ══════════════════════════════════════════════════════════════
+  HMR — index.astro CONTENT UPDATES
+  فقط این بخش‌ها را در فایل index.astro موجودتان جایگزین کنید.
+  طراحی، رنگ، انیمیشن و CSS دست‌نخورده می‌ماند.
+  ══════════════════════════════════════════════════════════════
+*/}
+
+{/* ─────────────────────────────────────────────────────────
+    1. LOGO — جایگزین کنید هر جا که "HMR" متن ساده دارید
+    ───────────────────────────────────────────────────────── */}
+
+{/* لوگو برای ناوبار (nav) — این SVG را جایگزین "<span>HMR</span>" کنید */}
+<a href="/" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+  <svg width="34" height="34" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+       style="filter:drop-shadow(0 0 14px rgba(0,212,255,.35))">
+    <defs>
+      <linearGradient id="hmrOrbNav" x1="34" y1="40" x2="170" y2="168" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#5ce1ff"/>
+        <stop offset="0.45" stop-color="#2f6bff"/>
+        <stop offset="1" stop-color="#6366f1"/>
+      </linearGradient>
+    </defs>
+    <circle cx="100" cy="100" r="64" fill="url(#hmrOrbNav)"/>
+    <g transform="rotate(-7 100 87)">
+      <ellipse cx="100" cy="87" rx="58" ry="34" fill="none" stroke="#05070f" stroke-width="8.5"/>
+    </g>
+  </svg>
+  <span style="font-family:var(--font-en,inherit);font-weight:700;font-size:20px;color:var(--text-body,#eaf2ff);letter-spacing:.02em">HMR</span>
+</a>
+
+
+{/* ─────────────────────────────────────────────────────────
+    2. HERO SECTION — جایگزین بخش hero فعلی
+    ───────────────────────────────────────────────────────── */}
+
+<header class="hero-section">
+  {/* Badge */}
+  <div class="badge-brand">
+    <span class="badge-dot"></span>
+    <span class="en">Smart Mobile Advisor</span>
+    <span class="fa">مشاور هوشمند موبایل</span>
+  </div>
+
+  {/* Headline */}
+  <h1 class="hero-title">
+    <span class="en">Make confident <span class="hmr-gradient-text">mobile decisions</span></span>
+    <span class="fa">با اطمینان <span class="hmr-gradient-text">موبایل انتخاب کن</span></span>
+  </h1>
+
+  {/* Lead */}
+  <p class="hero-lead">
+    <span class="en">Buy, fix, and understand your phone with localized, up-to-date guidance built on real Iranian-market data — not a generic chatbot.</span>
+    <span class="fa">خرید، تعمیر و شناخت گوشی‌ات را با راهنمایی بومی و به‌روز، بر پایهٔ داده‌های واقعی بازار ایران انجام بده — نه یک چت‌بات عمومی.</span>
+  </p>
+
+  {/* CTAs */}
+  <div class="hero-cta-row">
+    <a href="/ai" class="btn-primary">
+      <span class="en">Start a chat →</span>
+      <span class="fa">شروع گفتگو →</span>
+    </a>
+    <a href="#how" class="btn-secondary">
+      <span class="en">How it works</span>
+      <span class="fa">چطور کار می‌کند</span>
+    </a>
+  </div>
+
+  {/* Guardrail line */}
+  <p class="hero-guardrail">
+    <span class="en">When HMR doesn't have enough information, it says so — and points you to a trusted human expert rather than guessing.</span>
+    <span class="fa">وقتی HMR اطلاعات کافی نداشته باشد، صادقانه می‌گوید و شما را به یک کارشناس مورد اعتماد ارجاع می‌دهد — نه اینکه حدس بزند.</span>
+  </p>
+</header>
+
+
+{/* ─────────────────────────────────────────────────────────
+    3. PILLARS — 5 ستون (جایگزین 3 کارت قبلی)
+    ───────────────────────────────────────────────────────── */}
+
+<section class="pillars-section" id="how">
+  <div class="section-header">
+    <h2>
+      <span class="en">One companion, the whole phone lifecycle</span>
+      <span class="fa">یک همراه، تمام چرخهٔ عمر گوشی</span>
+    </h2>
+    <p class="section-sub">
+      <span class="en">Five pillars — all focused on hardware.</span>
+      <span class="fa">پنج ستون — همه با تمرکز بر سخت‌افزار.</span>
+    </p>
+  </div>
+
+  <div class="pillars-grid">
+
+    {/* Pillar 1 */}
+    <div class="pillar-card">
+      <div class="pillar-icon icon-cyan">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+      </div>
+      <h3>
+        <span class="en">New phone guidance</span>
+        <span class="fa">راهنمای خرید گوشی نو</span>
+      </h3>
+      <p>
+        <span class="en">Pick the right device for your budget and needs. Compare models within a price tier and understand the trade-offs.</span>
+        <span class="fa">گوشی مناسب برای بودجه و نیازت را انتخاب کن. مدل‌ها را در یک رده قیمتی مقایسه کن و تفاوت‌ها را بفهم.</span>
+      </p>
+      <p class="pillar-question">
+        <span class="en">"Best camera under 25M Tomans?"</span>
+        <span class="fa">"بهترین دوربین زیر ۲۵ میلیون تومان؟"</span>
+      </p>
+    </div>
+
+    {/* Pillar 2 */}
+    <div class="pillar-card">
+      <div class="pillar-icon icon-blue">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <h3>
+        <span class="en">Used phone guidance</span>
+        <span class="fa">راهنمای خرید گوشی دست دوم</span>
+      </h3>
+      <p>
+        <span class="en">Fair-price checks, pre-purchase checklists, registry status, and detection of replaced or counterfeit parts.</span>
+        <span class="fa">بررسی قیمت منصفانه، چک‌لیست قبل از خرید، وضعیت رجیستری، و تشخیص قطعات تعویض‌شده یا تقلبی.</span>
+      </p>
+      <p class="pillar-question">
+        <span class="en">"Is a Samsung A54 worth 35M after 18 months?"</span>
+        <span class="fa">"سامسونگ A54 بعد از ۱۸ ماه ۳۵ میلیون می‌ارزد؟"</span>
+      </p>
+    </div>
+
+    {/* Pillar 3 */}
+    <div class="pillar-card">
+      <div class="pillar-icon icon-indigo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <h3>
+        <span class="en">Troubleshooting</span>
+        <span class="fa">عیب‌یابی و تعمیر</span>
+      </h3>
+      <p>
+        <span class="en">Describe a symptom in plain language; get a likely cause, a safe fix where possible, or a trusted repair referral.</span>
+        <span class="fa">علائم را به زبان ساده توضیح بده؛ احتمال‌ترین دلیل و راه‌حل امن یا معرفی تعمیرکار مورد اعتماد را دریافت کن.</span>
+      </p>
+      <p class="pillar-question">
+        <span class="en">"My iPhone 12 overheats and drains fast — what's wrong?"</span>
+        <span class="fa">"آیفون ۱۲ من داغ می‌کند و باتری تند تموم می‌شه — مشکل چیه؟"</span>
+      </p>
+    </div>
+
+    {/* Pillar 4 */}
+    <div class="pillar-card">
+      <div class="pillar-icon icon-cyan">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <h3>
+        <span class="en">Hardware education</span>
+        <span class="fa">آموزش سخت‌افزار</span>
+      </h3>
+      <p>
+        <span class="en">Translate spec sheets — camera, RAM, chipset, display, battery — into decisions you can actually make.</span>
+        <span class="fa">مشخصات فنی — دوربین، RAM، چیپست، نمایشگر، باتری — را به تصمیم‌هایی که می‌توانی بگیری تبدیل کن.</span>
+      </p>
+      <p class="pillar-question">
+        <span class="en">"Real difference between 50MP and 108MP cameras?"</span>
+        <span class="fa">"تفاوت واقعی دوربین ۵۰ و ۱۰۸ مگاپیکسل چیست؟"</span>
+      </p>
+    </div>
+
+    {/* Pillar 5 */}
+    <div class="pillar-card">
+      <div class="pillar-icon icon-blue">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      </div>
+      <h3>
+        <span class="en">Accessory guidance</span>
+        <span class="fa">راهنمای لوازم جانبی</span>
+      </h3>
+      <p>
+        <span class="en">The right case, screen glass, charger, and earphones — matched to your exact model and the local market.</span>
+        <span class="fa">کاور، گلس، شارژر و هندزفری مناسب — متناسب با مدل دقیق گوشی‌ات و بازار ایران.</span>
+      </p>
+      <p class="pillar-question">
+        <span class="en">"Best screen protector for the Redmi Note 12?"</span>
+        <span class="fa">"بهترین محافظ صفحه برای ردمی نوت ۱۲؟"</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+{/* ─────────────────────────────────────────────────────────
+    4. FOOTER — جایگزین footer فعلی
+    ───────────────────────────────────────────────────────── */}
+
+<footer class="site-footer">
+  <nav class="footer-links">
+    <a href="/" class="en">Home</a>
+    <a href="/about" class="en">About Us</a>
+    <a href="/about" class="fa">درباره ما</a>
+    <a href="/contact" class="en">Contact</a>
+    <a href="/contact" class="fa">تماس</a>
+    <a href="/privacy" class="en">Privacy Policy</a>
+    <a href="/privacy" class="fa">حریم خصوصی</a>
+    <a href="/blog" class="en">Blog</a>
+    <a href="/blog" class="fa">وبلاگ</a>
+  </nav>
+  <p class="footer-copy">
+    <span class="en">© 2026 HMR — Hosh Masnoi Rah. All rights reserved.</span>
+    <span class="fa">© ۱۴۰۴ همر — هوش مصنوعی راه. تمام حقوق محفوظ است.</span>
+  </p>
+</footer>

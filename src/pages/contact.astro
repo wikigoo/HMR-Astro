@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact HMR">
+  <style>
+    .page { padding: 60px 0 90px; max-width: 680px; }
+    .page h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; margin-bottom:12px; }
+    .page h1 .accent { background:linear-gradient(90deg,var(--cyan),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .page .lead { color:var(--muted); font-size:1.05rem; margin-bottom:40px; line-height:1.7; }
+    .contact-grid { display:grid; gap:16px; }
+    .contact-card {
+      display:flex; align-items:center; gap:18px;
+      background:var(--card); border:1px solid var(--border); border-radius:16px;
+      padding:22px 24px; backdrop-filter:blur(12px); text-decoration:none;
+      color:var(--text); transition:border-color .2s, transform .2s;
+    }
+    .contact-card:hover { border-color:rgba(0,212,255,.45); transform:translateX(4px); }
+    body[data-lang="fa"] .contact-card:hover { transform:translateX(-4px); }
+    .contact-card .icon { width:48px; height:48px; display:grid; place-items:center; border-radius:12px; background:rgba(0,212,255,.08); border:1px solid var(--border); flex-shrink:0; }
+    .contact-card .icon svg { width:22px; height:22px; stroke:var(--cyan); fill:none; stroke-width:1.8; }
+    .contact-card .label { font-size:.8rem; color:var(--muted); margin-bottom:3px; }
+    .contact-card .value { font-weight:600; }
+  </style>
+
+  <div class="page">
+    <span class="badge">
+      <span class="en">Get in Touch</span>
+      <span class="fa">ارتباط با ما</span>
+    </span>
+    <h1>
+      <span class="en">Contact <span class="accent">HMR</span></span>
+      <span class="fa">تماس با <span class="accent">همر</span></span>
+    </h1>
+    <p class="lead">
+      <span class="en">Have a question or suggestion? We'd love to hear from you.</span>
+      <span class="fa">سوال یا پیشنهادی داری؟ خوشحال می‌شیم بشنویم.</span>
+    </p>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:info@hmrbot.com">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+        <div>
+          <div class="label"><span class="en">Email</span><span class="fa">ایمیل</span></div>
+          <div class="value">info@hmrbot.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://chat.hmrbot.com">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="label"><span class="en">AI Chat</span><span class="fa">چت هوشمند</span></div>
+          <div class="value">chat.hmrbot.com</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</Layout>

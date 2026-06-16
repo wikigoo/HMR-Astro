@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Chat — bubbles, chips, composer" subtitle="ChatBubble · SuggestionChip · ChatComposer" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body{margin:0;background:var(--surface-page);padding:24px;font-family:var(--font-en);position:relative;overflow:hidden}
+  .glow{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(90px);opacity:.3}
+  .gc{background:var(--hmr-cyan);top:-90px;right:-40px}
+  .gi{background:var(--hmr-indigo);bottom:-110px;left:-50px}
+  #root{position:relative;z-index:2;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div class="glow gc"></div><div class="glow gi"></div>
+<div id="root"></div>
+<script type="text/babel">
+  const { ChatBubble, SuggestionChip, ChatComposer } = window.HMRDesignSystem_2cb0f9;
+  function Demo() {
+    const [text, setText] = React.useState('');
+    return (
+      <React.Fragment>
+        <div className="stack">
+          <ChatBubble role="user">Is an iPhone 13 (128GB) at 95M Tomans fair after 18 months?</ChatBubble>
+          <ChatBubble role="assistant">Based on current Iranian-market data that's about right — 90–105M is the typical range. Check the battery health and registry status before you commit.</ChatBubble>
+        </div>
+        <div className="chips">
+          <SuggestionChip>How do I spot a replaced screen?</SuggestionChip>
+          <SuggestionChip>Best phone under 25M for photos?</SuggestionChip>
+        </div>
+        <ChatComposer value={text} onChange={setText} onSend={()=>setText('')} />
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body></html>

@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="About HMR — Hosh Masnoi Rah">
+  <style>
+    .page { padding: 60px 0 90px; max-width: 720px; }
+    .page h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; margin-bottom:12px; }
+    .page h1 .accent { background:linear-gradient(90deg,var(--cyan),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .page .lead { color:var(--muted); font-size:1.1rem; margin-bottom:40px; line-height:1.7; }
+    .section-title { font-size:1.1rem; font-weight:600; color:var(--cyan); letter-spacing:.06em; text-transform:uppercase; margin-bottom:14px; }
+    .page p { color:var(--muted); line-height:1.8; margin-bottom:28px; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:36px 0; }
+    .stat { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px 18px; text-align:center; backdrop-filter:blur(12px); }
+    .stat .num { font-size:2rem; font-weight:700; background:linear-gradient(90deg,var(--cyan),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .stat .label { color:var(--muted); font-size:.85rem; margin-top:4px; }
+    @media(max-width:600px){ .stats{grid-template-columns:1fr 1fr;} }
+  </style>
+
+  <div class="page">
+    <span class="badge">
+      <span class="en">About Us</span>
+      <span class="fa">درباره ما</span>
+    </span>
+    <h1>
+      <span class="en">What is <span class="accent">HMR?</span></span>
+      <span class="fa"><span class="accent">همر</span> چیست؟</span>
+    </h1>
+    <p class="lead">
+      <span class="en">HMR (Hosh Masnoi Rah) is an AI-powered chatbot designed to help Iranian consumers make smarter decisions when buying, selling, or repairing mobile phones.</span>
+      <span class="fa">همر (هوش مصنوعی راه) یک چت‌بات هوشمند است که به مصرف‌کنندگان ایرانی کمک می‌کند در خرید، فروش و تعمیر موبایل تصمیم‌های هوشمندانه‌تری بگیرند.</span>
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num"><span class="en">7+</span><span class="fa">۷+</span></div>
+        <div class="label"><span class="en">Knowledge Axes</span><span class="fa">محور دانشی</span></div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="en">24/7</span><span class="fa">۲۴/۷</span></div>
+        <div class="label"><span class="en">Available</span><span class="fa">در دسترس</span></div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="en">FA</span><span class="fa">فا</span></div>
+        <div class="label"><span class="en">Persian First</span><span class="fa">فارسی اول</span></div>
+      </div>
+    </div>
+
+    <p class="section-title"><span class="en">Our Mission</span><span class="fa">مأموریت ما</span></p>
+    <p>
+      <span class="en">In a market defined by counterfeit devices, fake warranties, and opaque pricing, HMR acts as a neutral, knowledgeable advisor. We provide accurate, real-time data so every buyer can protect themselves.</span>
+      <span class="fa">در بازاری که موبایل‌های تقلبی، گارانتی‌های جعلی و قیمت‌گذاری مبهم رواج دارد، همر به‌عنوان یک مشاور بی‌طرف و آگاه عمل می‌کند تا هر خریداری بتواند از خود محافظت کند.</span>
+    </p>
+
+    <p class="section-title"><span class="en">Technology</span><span class="fa">فناوری</span></p>
+    <p>
+      <span class="en">Built on the Dify platform with a continuously updated knowledge base, HMR combines RAG (Retrieval-Augmented Generation) with live market data crawlers to deliver accurate, localized answers.</span>
+      <span class="fa">همر بر پایه پلتفرم Dify و با پایگاه دانشی که مداوم به‌روز می‌شود ساخته شده و از RAG و خزنده‌های داده بازار ایران برای پاسخ‌های دقیق و محلی استفاده می‌کند.</span>
+    </p>
+  </div>
+</Layout>
