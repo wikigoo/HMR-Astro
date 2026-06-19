@@ -6,6 +6,7 @@
 // CORS: in Flowise, set Allowed Origins = https://hmrbot.com for this chatflow.
 const CHATFLOW_ID = import.meta.env.FLOWISE_CHATFLOW_ID ?? '843b252b-6ed0-4064-96cd-cb78367bd7b3';
 const FLOWISE_API = 'https://srv.hmrbot.com';
+const FLOWISE_API_KEY = import.meta.env.FLOWISE_API_KEY;
 // Improved orb lives in public/assets/hmr-logo.svg (copy it from the design system).
 const LOGO = '/assets/hmr-logo.svg';
 ---
@@ -352,7 +353,7 @@ const LOGO = '/assets/hmr-logo.svg';
   </script>
 
   <!-- Chat logic — direct Flowise prediction API with token streaming -->
-  <script is:inline define:vars={{ CHATFLOW_ID, FLOWISE_API, LOGO }}>
+  <script is:inline define:vars={{ CHATFLOW_ID, FLOWISE_API, FLOWISE_API_KEY, LOGO }}>
     (function () {
       const app = document.getElementById('app');
       const main = document.getElementById('main');
@@ -442,7 +443,7 @@ const LOGO = '/assets/hmr-logo.svg';
 
         try {
           const res = await fetch(FLOWISE_API + '/api/v1/prediction/' + CHATFLOW_ID, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            method: 'POST', headers: { 'Content-Type': 'application/json', ...(FLOWISE_API_KEY ? { 'Authorization': 'Bearer ' + FLOWISE_API_KEY } : {}) },
             body: JSON.stringify({ question: text, streaming: true, chatId: sessionId, overrideConfig: { sessionId } })
           });
 
@@ -494,3 +495,4 @@ const LOGO = '/assets/hmr-logo.svg';
   </script>
 </body>
 </html>
+
