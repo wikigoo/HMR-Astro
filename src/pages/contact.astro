@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Contact HMR">
+<Layout title="ارتباط با همر" description="با تیم همر تماس بگیرید — ایمیل پشتیبانی، مشاور هوشمند موبایل">
   <style>
     .page { padding: 60px 0 90px; max-width: 680px; }
     .page h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; margin-bottom:12px; }
     .page h1 .accent { background:linear-gradient(90deg,var(--cyan),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .page .lead { color:var(--muted); font-size:1.05rem; margin-bottom:40px; line-height:1.7; }
-    .contact-grid { display:grid; gap:16px; }
+    .lead { color:var(--muted); font-size:1.02rem; margin-bottom:40px; line-height:1.8; }
+    .contact-grid { display:grid; gap:14px; }
     .contact-card {
       display:flex; align-items:center; gap:18px;
       background:var(--card); border:1px solid var(--border); border-radius:16px;
@@ -16,10 +16,11 @@ import Layout from '../layouts/Layout.astro';
     }
     .contact-card:hover { border-color:rgba(0,212,255,.45); transform:translateX(4px); }
     body[data-lang="fa"] .contact-card:hover { transform:translateX(-4px); }
-    .contact-card .icon { width:48px; height:48px; display:grid; place-items:center; border-radius:12px; background:rgba(0,212,255,.08); border:1px solid var(--border); flex-shrink:0; }
+    .contact-card .icon { width:46px; height:46px; display:grid; place-items:center; border-radius:12px; background:rgba(0,212,255,.08); border:1px solid var(--border); flex-shrink:0; }
     .contact-card .icon svg { width:22px; height:22px; stroke:var(--cyan); fill:none; stroke-width:1.8; }
-    .contact-card .label { font-size:.8rem; color:var(--muted); margin-bottom:3px; }
-    .contact-card .value { font-weight:600; }
+    .contact-card .label { font-size:.78rem; color:var(--muted); margin-bottom:3px; }
+    .contact-card .value { font-weight:600; font-size:.97rem; }
+    .note { margin-top:36px; padding:18px 22px; border-radius:14px; background:rgba(0,212,255,.05); border:1px solid rgba(0,212,255,.15); color:var(--muted); font-size:.9rem; line-height:1.8; }
   </style>
 
   <div class="page">
@@ -32,25 +33,37 @@ import Layout from '../layouts/Layout.astro';
       <span class="fa">تماس با <span class="accent">همر</span></span>
     </h1>
     <p class="lead">
-      <span class="en">Have a question or suggestion? We'd love to hear from you.</span>
-      <span class="fa">سوال یا پیشنهادی داری؟ خوشحال می‌شیم بشنویم.</span>
+      <span class="en">Have a question, feedback, or a partnership idea? Reach out — we respond within 2 business days.</span>
+      <span class="fa">سوال، بازخورد یا پیشنهاد همکاری دارید؟ پیام بدهید — ظرف ۲ روز کاری پاسخ می‌دهیم.</span>
     </p>
 
     <div class="contact-grid">
       <a class="contact-card" href="mailto:info@hmrbot.com">
         <div class="icon"><svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
         <div>
-          <div class="label"><span class="en">Email</span><span class="fa">ایمیل</span></div>
+          <div class="label"><span class="en">General inquiries</span><span class="fa">سوالات عمومی</span></div>
           <div class="value">info@hmrbot.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="mailto:support@hmrbot.com">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+        <div>
+          <div class="label"><span class="en">Support & account issues</span><span class="fa">پشتیبانی و مشکلات حساب</span></div>
+          <div class="value">support@hmrbot.com</div>
         </div>
       </a>
       <a class="contact-card" href="/ai">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div>
-          <div class="label"><span class="en">AI Chat</span><span class="fa">چت هوشمند</span></div>
+          <div class="label"><span class="en">AI assistant — instant answers</span><span class="fa">دستیار هوشمند — پاسخ فوری</span></div>
           <div class="value">hmrbot.com/ai</div>
         </div>
       </a>
+    </div>
+
+    <div class="note">
+      <span class="en">For privacy or data deletion requests, email <a href="mailto:privacy@hmrbot.com" style="color:var(--cyan)">privacy@hmrbot.com</a>. See our <a href="/privacy" style="color:var(--cyan)">Privacy Policy</a> for details.</span>
+      <span class="fa">برای درخواست‌های مربوط به حریم خصوصی یا حذف داده، ایمیل بزنید به <a href="mailto:privacy@hmrbot.com" style="color:var(--cyan)">privacy@hmrbot.com</a>. جزئیات در <a href="/privacy" style="color:var(--cyan)">سیاست حریم خصوصی</a>.</span>
     </div>
   </div>
 </Layout>
