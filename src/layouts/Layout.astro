@@ -6,7 +6,7 @@ export interface Props {
   description?: string;
   hideNav?: boolean;
 }
-const { title, description = 'HMR — Your Smart Mobile Advisor', hideNav = false } = Astro.props;
+const { title, description = 'همر | هوش مصنوعی موبایل — مشاور خرید Samsung، Apple و Xiaomi', hideNav = false } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +15,7 @@ const { title, description = 'HMR — Your Smart Mobile Advisor', hideNav = fals
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/assets/hmr-logo.png" />
   <style is:global>
     /* Compatibility aliases — map old shorthand to HMR design tokens */
     :root {
