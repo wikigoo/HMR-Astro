@@ -9,7 +9,7 @@ export interface Props {
 const { title, description = 'همر | هوش مصنوعی موبایل — مشاور خرید Samsung، Apple و Xiaomi', hideNav = false } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -61,20 +61,8 @@ const { title, description = 'همر | هوش مصنوعی موبایل — مش
       color: var(--text-on-accent) !important; font-weight: 600; padding: 7px 18px;
       border-radius: 10px;
     }
-    .lang-toggle {
-      display: flex; gap: 4px; padding: 4px;
-      background: var(--surface-card); border: 1px solid var(--border-subtle);
-      border-radius: 999px; backdrop-filter: blur(10px);
-    }
-    .lang-toggle button {
-      font: inherit; font-size: 0.82rem; cursor: pointer;
-      padding: 6px 14px; border: 0; border-radius: 999px;
-      background: transparent; color: var(--text-muted); transition: all .2s;
-    }
-    .lang-toggle button.active {
-      background: var(--gradient-brand);
-      color: var(--text-on-accent); font-weight: 600;
-    }
+    /* فارسی-تنها: محتوای انگلیسی پنهان */
+    .en { display: none !important; }
 
     /* footer */
     footer {
@@ -119,7 +107,7 @@ const { title, description = 'همر | هوش مصنوعی موبایل — مش
     @media (max-width: 600px) { .nav-links .hide-mobile { display: none; } }
   </style>
 </head>
-<body data-lang="en">
+<body data-lang="fa">
   <canvas id="particles"></canvas>
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
@@ -129,9 +117,11 @@ const { title, description = 'همر | هوش مصنوعی موبایل — مش
     {!hideNav && (
     <nav>
       <a href="/" class="logo">HMR</a>
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button data-set="en" class="active">EN</button>
-        <button data-set="fa">FA</button>
+      <div class="nav-links">
+        <a href="/" class="nav-link">خانه</a>
+        <a href="/blog" class="nav-link">بلاگ</a>
+        <a href="/about" class="nav-link">درباره ما</a>
+        <a href="/ai" class="nav-link cta-nav">مشاور هوشمند</a>
       </div>
     </nav>
     )}
@@ -142,32 +132,18 @@ const { title, description = 'همر | هوش مصنوعی موبایل — مش
   <footer>
     <div class="wrap">
       <div class="footer-links">
-        <a href="/"><span class="en">Home</span><span class="fa">خانه</span></a>
-        <a href="/blog"><span class="en">Blog</span><span class="fa">بلاگ</span></a>
-        <a href="/about"><span class="en">About Us</span><span class="fa">درباره ما</span></a>
-        <a href="/contact"><span class="en">Contact</span><span class="fa">ارتباط با ما</span></a>
-        <a href="/privacy"><span class="en">Privacy Policy</span><span class="fa">حریم خصوصی</span></a>
-        <a href="/disclaimer"><span class="en">Disclaimer</span><span class="fa">سلب مسئولیت</span></a>
+        <a href="/">خانه</a>
+        <a href="/blog">بلاگ</a>
+        <a href="/about">درباره ما</a>
+        <a href="/contact">ارتباط با ما</a>
+        <a href="/privacy">حریم خصوصی</a>
+        <a href="/disclaimer">سلب مسئولیت</a>
       </div>
-      <div>
-        <span class="en">© 2026 HMR — Hosh Masnoi Rah. All rights reserved.</span>
-        <span class="fa">© ۱۴۰۵ همر — هوش مصنوعی راه. تمامی حقوق محفوظ است.</span>
-      </div>
+      <div>© ۱۴۰۵ همر — هوش مصنوعی راه. تمامی حقوق محفوظ است.</div>
     </div>
   </footer>
 
   <script>
-    const body = document.body;
-    document.querySelectorAll('.lang-toggle button').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const lang = (btn as HTMLElement).dataset.set as string;
-        body.dataset.lang = lang;
-        body.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
-        document.documentElement.lang = lang;
-        document.querySelectorAll('.lang-toggle button').forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
     const canvas = document.getElementById('particles') as HTMLCanvasElement;
     if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const ctx = canvas.getContext('2d')!;

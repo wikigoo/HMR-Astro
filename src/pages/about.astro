@@ -23,81 +23,50 @@ import Layout from '../layouts/Layout.astro';
   </style>
 
   <div class="page">
-    <span class="badge">
-      <span class="en">About Us</span>
-      <span class="fa">درباره ما</span>
-    </span>
-    <h1>
-      <span class="en">What is <span class="accent">HMR?</span></span>
-      <span class="fa"><span class="accent">همر</span> چیست؟</span>
-    </h1>
-    <p class="lead">
-      <span class="en">HMR is an AI-powered mobile hardware advisor built for the Iranian market. Whether you're buying a new phone, checking a used device, or troubleshooting hardware issues — HMR gives you accurate, Persian-language guidance in seconds.</span>
-      <span class="fa">همر یک مشاور هوشمند سخت‌افزار موبایل است که برای بازار ایران ساخته شده. چه بخواهید گوشی نو بخرید، دستگاه دست دوم را بررسی کنید، یا مشکل سخت‌افزاری را عیب‌یابی کنید — همر در چند ثانیه راهنمایی دقیق به فارسی می‌دهد.</span>
-    </p>
+    <span class="badge">درباره ما</span>
+    <h1><span class="accent">همر</span> چیست؟</h1>
+    <p class="lead">همر یک مشاور هوشمند سخت‌افزار موبایل است که برای بازار ایران ساخته شده. چه بخواهید گوشی نو بخرید، دستگاه دست دوم را بررسی کنید، یا مشکل سخت‌افزاری را عیب‌یابی کنید — همر در چند ثانیه راهنمایی دقیق به فارسی می‌دهد.</p>
 
     <div class="stats">
       <div class="stat">
-        <div class="num"><span class="en">24/7</span><span class="fa">۲۴/۷</span></div>
-        <div class="label"><span class="en">Always available</span><span class="fa">همیشه در دسترس</span></div>
+        <div class="num">۲۴/۷</div>
+        <div class="label">همیشه در دسترس</div>
       </div>
       <div class="stat">
-        <div class="num"><span class="en">3</span><span class="fa">۳</span></div>
-        <div class="label"><span class="en">Major brands<br/>Samsung · Apple · Xiaomi</span><span class="fa">برند اصلی<br/>سامسونگ · اپل · شیائومی</span></div>
+        <div class="num">۳</div>
+        <div class="label">برند اصلی<br/>سامسونگ · اپل · شیائومی</div>
       </div>
       <div class="stat">
-        <div class="num"><span class="en">FA</span><span class="fa">فا</span></div>
-        <div class="label"><span class="en">Persian-first AI</span><span class="fa">هوش مصنوعی فارسی</span></div>
+        <div class="num">فا</div>
+        <div class="label">هوش مصنوعی فارسی</div>
       </div>
     </div>
 
-    <p class="section-title"><span class="en">What HMR does</span><span class="fa">همر چه کاری انجام می‌دهد</span></p>
+    <p class="section-title">همر چه کاری انجام می‌دهد</p>
     <ul class="feature-list">
-      <li>
-        <span class="en">Buying guide — compare models, spot the best deal for your budget</span>
-        <span class="fa">راهنمای خرید — مقایسه مدل‌ها و بهترین انتخاب برای بودجه شما</span>
-      </li>
-      <li>
-        <span class="en">Used-phone inspection — step-by-step checklist and USSD test codes</span>
-        <span class="fa">بررسی گوشی دست دوم — چک‌لیست گام‌به‌گام و کدهای USSD تست</span>
-      </li>
-      <li>
-        <span class="en">Hardware troubleshooting — battery, charging, display, camera, and more</span>
-        <span class="fa">عیب‌یابی سخت‌افزاری — باتری، شارژ، صفحه‌نمایش، دوربین و بیشتر</span>
-      </li>
-      <li>
-        <span class="en">Warranty verification — identify genuine vs. counterfeit guarantees</span>
-        <span class="fa">تشخیص گارانتی — تفکیک گارانتی اصل از گارانتی جعلی</span>
-      </li>
-      <li>
-        <span class="en">Accessories guidance — compatible cases, chargers, and earbuds</span>
-        <span class="fa">راهنمای لوازم جانبی — قاب، شارژر و ایرباد سازگار</span>
-      </li>
+      <li>راهنمای خرید — مقایسه مدل‌ها و بهترین انتخاب برای بودجه شما</li>
+      <li>بررسی گوشی دست دوم — چک‌لیست گام‌به‌گام و کدهای USSD تست</li>
+      <li>عیب‌یابی سخت‌افزاری — باتری، شارژ، صفحه‌نمایش، دوربین و بیشتر</li>
+      <li>تشخیص گارانتی — تفکیک گارانتی اصل از گارانتی جعلی</li>
+      <li>راهنمای لوازم جانبی — قاب، شارژر و ایرباد سازگار</li>
     </ul>
 
-    <p class="section-title"><span class="en">Brands we cover</span><span class="fa">برندهایی که پوشش می‌دهیم</span></p>
+    <p class="section-title">برندهایی که پوشش می‌دهیم</p>
     <div class="brand-row">
       <span class="brand-badge">🔷 Samsung — Galaxy S · A · M</span>
       <span class="brand-badge">🔲 Apple — iPhone 12 and above</span>
       <span class="brand-badge">🔴 Xiaomi — Redmi · Note · 13/14</span>
     </div>
 
-    <p class="section-title"><span class="en">Technology</span><span class="fa">فناوری</span></p>
-    <p>
-      <span class="en">HMR is powered by Flowise — an open-source AI orchestration platform — running on a dedicated VPS in Germany. The AI model (Google Gemini via OpenRouter) is connected to a domain-specific knowledge base covering Iranian mobile market data, spec sheets, and troubleshooting guides. Conversation memory ensures continuity across your session.</span>
-      <span class="fa">همر بر پایه Flowise — یک پلتفرم اوپن‌سورس برای ارکستراسیون هوش مصنوعی — روی یک سرور اختصاصی در آلمان اجرا می‌شود. مدل هوش مصنوعی (Google Gemini از طریق OpenRouter) به یک پایگاه دانش تخصصی متصل است که داده‌های بازار موبایل ایران، مشخصات فنی و راهنماهای عیب‌یابی را در بر می‌گیرد. حافظه مکالمه پیوستگی در طول جلسه را تضمین می‌کند.</span>
-    </p>
+    <p class="section-title">فناوری</p>
+    <p>همر بر پایه Flowise — یک پلتفرم اوپن‌سورس برای ارکستراسیون هوش مصنوعی — روی یک سرور اختصاصی در آلمان اجرا می‌شود. مدل هوش مصنوعی (Google Gemini از طریق OpenRouter) به یک پایگاه دانش تخصصی متصل است که داده‌های بازار موبایل ایران، مشخصات فنی و راهنماهای عیب‌یابی را در بر می‌گیرد. حافظه مکالمه پیوستگی در طول جلسه را تضمین می‌کند.</p>
 
-    <p class="section-title"><span class="en">Our mission</span><span class="fa">مأموریت ما</span></p>
-    <p>
-      <span class="en">In a market shaped by counterfeit devices, fake warranties, and opaque pricing, most buyers make decisions alone — without access to reliable information. HMR exists to fix that: a neutral, knowledgeable, always-on advisor that every Iranian smartphone buyer deserves.</span>
-      <span class="fa">در بازاری که موبایل‌های تقلبی، گارانتی‌های جعلی و قیمت‌گذاری مبهم رواج دارد، اکثر خریداران بدون دسترسی به اطلاعات معتبر تصمیم می‌گیرند. همر برای رفع همین مشکل ساخته شده: یک مشاور بی‌طرف، آگاه و همیشه‌در‌دسترس که هر خریدار گوشی در ایران لایق آن است.</span>
-    </p>
+    <p class="section-title">مأموریت ما</p>
+    <p>در بازاری که موبایل‌های تقلبی، گارانتی‌های جعلی و قیمت‌گذاری مبهم رواج دارد، اکثر خریداران بدون دسترسی به اطلاعات معتبر تصمیم می‌گیرند. همر برای رفع همین مشکل ساخته شده: یک مشاور بی‌طرف، آگاه و همیشه‌در‌دسترس که هر خریدار گوشی در ایران لایق آن است.</p>
 
     <div class="cta-wrap">
       <a class="cta" href="/ai">
-        <span class="en">Start Chat</span>
-        <span class="fa">شروع گفتگو</span>
+        شروع گفتگو
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
