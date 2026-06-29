@@ -1,15 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Privacy Policy — HMR">
+<Layout
+  title="Privacy Policy — HMR"
+  description="HMR privacy policy — how we collect, use, and protect your data / سیاست حریم خصوصی همر"
+>
   <style>
-    .page { padding: 60px 0 90px; max-width: 720px; }
-    .page h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; margin-bottom:8px; }
-    .updated { color:var(--muted); font-size:.85rem; margin-bottom:36px; }
-    h2 { font-size:1.1rem; font-weight:600; color:var(--cyan); margin:32px 0 10px; }
-    p, li { color:var(--muted); line-height:1.8; margin-bottom:12px; }
-    ul { padding-right:20px; padding-left:20px; }
-    li { margin-bottom:6px; }
+    .page { padding: 60px 0 100px; max-width: 760px; }
+    .page h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 6px; }
+    .updated { color: var(--muted); font-size: .85rem; margin-bottom: 40px; display: block; }
+    h2 {
+      font-size: 1.05rem; font-weight: 600; color: var(--cyan);
+      margin: 36px 0 10px; padding-bottom: 6px;
+      border-bottom: 1px solid rgba(0,212,255,.15);
+    }
+    p, li { color: var(--muted); line-height: 1.85; margin-bottom: 10px; font-size: .97rem; }
+    ul { padding-right: 22px; padding-left: 22px; margin-bottom: 10px; }
+    li { margin-bottom: 5px; }
+    .highlight {
+      background: rgba(0,212,255,.06); border: 1px solid rgba(0,212,255,.18);
+      border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+    }
+    .highlight p { margin: 0; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .delete-box {
+      background: rgba(255,84,112,.06); border: 1px solid rgba(255,84,112,.2);
+      border-radius: 12px; padding: 16px 20px; margin: 16px 0;
+    }
+    .delete-box p { margin: 0; }
   </style>
 
   <div class="page">
@@ -17,38 +36,227 @@ import Layout from '../layouts/Layout.astro';
       <span class="en">Legal</span>
       <span class="fa">قانونی</span>
     </span>
+
     <h1>
       <span class="en">Privacy Policy</span>
       <span class="fa">سیاست حریم خصوصی</span>
     </h1>
-    <p class="updated">
-      <span class="en">Last updated: June 2026</span>
-      <span class="fa">آخرین به‌روزرسانی: خرداد ۱۴۰۵</span>
-    </p>
+    <span class="updated">
+      <span class="en">Last updated: June 28, 2026</span>
+      <span class="fa">آخرین به‌روزرسانی: ۷ تیر ۱۴۰۵</span>
+    </span>
 
-    <h2><span class="en">1. Information We Collect</span><span class="fa">۱. اطلاعاتی که جمع‌آوری می‌کنیم</span></h2>
+    <div class="highlight">
+      <p>
+        <span class="en">HMR ("همر") is an AI-powered mobile hardware advisor designed for the Iranian market. This policy explains what data we collect, why, and how you can control it.</span>
+        <span class="fa">همر (HMR) یک مشاور هوشمند سخت‌افزار موبایل است که برای بازار ایران طراحی شده. این سند توضیح می‌دهد چه داده‌ای جمع‌آوری می‌کنیم، چرا، و چطور می‌توانید آن را کنترل کنید.</span>
+      </p>
+    </div>
+
+    <!-- 1 -->
+    <h2>
+      <span class="en">1. Information We Collect</span>
+      <span class="fa">۱. اطلاعاتی که جمع‌آوری می‌کنیم</span>
+    </h2>
     <p>
-      <span class="en">HMR collects only the messages you send to the chatbot during your session. We do not collect personal identifiers unless you voluntarily provide them.</span>
-      <span class="fa">همر فقط پیام‌هایی را که در طول جلسه به چت‌بات می‌فرستید جمع‌آوری می‌کند. ما اطلاعات شناسه شخصی جمع‌آوری نمی‌کنیم مگر اینکه خودتان ارائه دهید.</span>
+      <span class="en">When you use the HMR app or website, we may collect the following types of information:</span>
+      <span class="fa">هنگام استفاده از اپ یا وب‌سایت همر، ممکن است اطلاعات زیر را جمع‌آوری کنیم:</span>
+    </p>
+    <ul>
+      <li>
+        <span class="en"><strong>Account information:</strong> If you sign in with Google, we receive your display name and email address from Google's authentication service.</span>
+        <span class="fa"><strong>اطلاعات حساب:</strong> اگر با Google وارد شوید، نام نمایشی و آدرس ایمیل شما را از سرویس احراز هویت Google دریافت می‌کنیم.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Chat messages:</strong> The questions and messages you send to the AI assistant are transmitted to our backend servers to generate a response.</span>
+        <span class="fa"><strong>پیام‌های چت:</strong> سوالات و پیام‌هایی که برای دستیار هوش مصنوعی می‌فرستید برای تولید پاسخ به سرورهای ما ارسال می‌شود.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Conversation history:</strong> Your chat history is stored locally on your device (SQLite database) so you can review past conversations.</span>
+        <span class="fa"><strong>تاریخچه مکالمه:</strong> تاریخچه چت شما به‌صورت محلی روی دستگاهتان (پایگاه‌داده SQLite) ذخیره می‌شود تا بتوانید مکالمات گذشته را مرور کنید.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Usage data:</strong> Basic technical information such as app version, device OS, and crash reports (via Sentry) to improve stability.</span>
+        <span class="fa"><strong>داده‌های استفاده:</strong> اطلاعات فنی پایه مانند نسخه اپ، سیستم‌عامل دستگاه، و گزارش خرابی (از طریق Sentry) برای بهبود پایداری.</span>
+      </li>
+    </ul>
+    <p>
+      <span class="en">We do <strong>not</strong> collect location data, contacts, camera or microphone access, or any biometric information.</span>
+      <span class="fa">ما داده موقعیت مکانی، مخاطبان، دسترسی به دوربین یا میکروفون، یا هیچ اطلاعات بیومتریکی <strong>جمع‌آوری نمی‌کنیم</strong>.</span>
     </p>
 
-    <h2><span class="en">2. How We Use Your Data</span><span class="fa">۲. نحوه استفاده از داده‌های شما</span></h2>
+    <!-- 2 -->
+    <h2>
+      <span class="en">2. How We Use Your Data</span>
+      <span class="fa">۲. نحوه استفاده از داده‌های شما</span>
+    </h2>
     <ul>
-      <li><span class="en">To provide accurate answers to your queries.</span><span class="fa">برای ارائه پاسخ‌های دقیق به سوالات شما.</span></li>
-      <li><span class="en">To improve the quality of our AI knowledge base.</span><span class="fa">برای بهبود کیفیت پایگاه دانش هوش مصنوعی.</span></li>
-      <li><span class="en">We never sell your data to third parties.</span><span class="fa">ما هرگز داده‌های شما را به اشخاص ثالث نمی‌فروشیم.</span></li>
+      <li>
+        <span class="en">To provide accurate AI responses about mobile phones, hardware, and accessories.</span>
+        <span class="fa">برای ارائه پاسخ‌های دقیق هوش مصنوعی درباره گوشی، سخت‌افزار، و لوازم جانبی.</span>
+      </li>
+      <li>
+        <span class="en">To maintain your conversation history across sessions.</span>
+        <span class="fa">برای حفظ تاریخچه مکالمه شما بین جلسات.</span>
+      </li>
+      <li>
+        <span class="en">To improve the quality of AI responses and fix bugs.</span>
+        <span class="fa">برای بهبود کیفیت پاسخ‌های هوش مصنوعی و رفع اشکال.</span>
+      </li>
+      <li>
+        <span class="en">To detect and prevent abuse or misuse of the service.</span>
+        <span class="fa">برای تشخیص و جلوگیری از سوءاستفاده از سرویس.</span>
+      </li>
     </ul>
 
-    <h2><span class="en">3. Data Retention</span><span class="fa">۳. نگهداری داده</span></h2>
+    <!-- 3 -->
+    <h2>
+      <span class="en">3. Data Sharing &amp; Third Parties</span>
+      <span class="fa">۳. اشتراک‌گذاری داده و اشخاص ثالث</span>
+    </h2>
     <p>
-      <span class="en">Conversation data is retained for up to 30 days for service improvement, after which it is permanently deleted.</span>
-      <span class="fa">داده‌های مکالمه تا ۳۰ روز برای بهبود سرویس نگهداری می‌شود و پس از آن به‌طور دائم حذف می‌گردد.</span>
+      <span class="en">We do <strong>not</strong> sell your personal data. We share data only with the following trusted service providers, solely to operate HMR:</span>
+      <span class="fa">ما داده شخصی شما را <strong>نمی‌فروشیم</strong>. داده را تنها با ارائه‌دهندگان خدمات زیر — فقط برای اجرای همر — به اشتراک می‌گذاریم:</span>
+    </p>
+    <ul>
+      <li>
+        <span class="en"><strong>Google Sign-In (Google LLC):</strong> For user authentication. Governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</span>
+        <span class="fa"><strong>Google Sign-In (شرکت گوگل):</strong> برای احراز هویت کاربر. تابع <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">سیاست حریم خصوصی Google</a>.</span>
+      </li>
+      <li>
+        <span class="en"><strong>OpenRouter / Google Gemini:</strong> Your chat messages are processed by an AI language model (Gemini Flash-Lite via OpenRouter) to generate responses. Messages are not used to train the model.</span>
+        <span class="fa"><strong>OpenRouter / Google Gemini:</strong> پیام‌های چت شما توسط یک مدل زبانی هوش مصنوعی (Gemini Flash-Lite از طریق OpenRouter) پردازش می‌شود. پیام‌ها برای آموزش مدل استفاده نمی‌شوند.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Sentry:</strong> Crash and error reporting to improve app stability. No personal messages are included in error reports.</span>
+        <span class="fa"><strong>Sentry:</strong> گزارش خرابی و خطا برای بهبود پایداری اپ. پیام‌های شخصی در گزارش‌های خطا لحاظ نمی‌شوند.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Hetzner Cloud (Germany):</strong> Our backend server is hosted in Nuremberg, Germany, subject to EU data protection standards.</span>
+        <span class="fa"><strong>Hetzner Cloud (آلمان):</strong> سرور بکند ما در نورنبرگ آلمان میزبانی می‌شود و تابع استانداردهای حفاظت از داده اتحادیه اروپا است.</span>
+      </li>
+    </ul>
+
+    <!-- 4 -->
+    <h2>
+      <span class="en">4. Data Retention</span>
+      <span class="fa">۴. نگهداری داده</span>
+    </h2>
+    <ul>
+      <li>
+        <span class="en"><strong>Conversation history</strong> is stored locally on your device indefinitely until you delete it or uninstall the app.</span>
+        <span class="fa"><strong>تاریخچه مکالمه</strong> به‌صورت محلی روی دستگاه شما ذخیره می‌ماند تا زمانی که آن را حذف کنید یا اپ را پاک کنید.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Server-side chat logs</strong> (if any) are retained for a maximum of 30 days for service quality monitoring, then permanently deleted.</span>
+        <span class="fa"><strong>لاگ‌های چت سمت سرور</strong> (در صورت وجود) حداکثر ۳۰ روز برای نظارت بر کیفیت سرویس نگهداری می‌شود، سپس به‌طور دائم حذف می‌گردد.</span>
+      </li>
+      <li>
+        <span class="en"><strong>Account data</strong> (name, email) is retained as long as your account is active.</span>
+        <span class="fa"><strong>اطلاعات حساب</strong> (نام، ایمیل) تا زمانی که حساب شما فعال است نگهداری می‌شود.</span>
+      </li>
+    </ul>
+
+    <!-- 5 -->
+    <h2>
+      <span class="en">5. Account Deletion &amp; Data Removal</span>
+      <span class="fa">۵. حذف حساب و پاک‌سازی داده</span>
+    </h2>
+    <p>
+      <span class="en">You have the right to delete your account and all associated data at any time.</span>
+      <span class="fa">شما حق دارید در هر زمان حساب و تمام داده‌های مرتبط با آن را حذف کنید.</span>
+    </p>
+    <div class="delete-box">
+      <p>
+        <span class="en">
+          <strong>To delete your account and data:</strong><br/>
+          Send an email to <a href="mailto:privacy@hmrbot.com">privacy@hmrbot.com</a> with the subject line
+          <em>"Account Deletion Request"</em> and include the email address associated with your account.
+          We will process your request within 7 business days and send a confirmation.
+        </span>
+        <span class="fa">
+          <strong>برای حذف حساب و داده‌ها:</strong><br/>
+          ایمیلی به <a href="mailto:privacy@hmrbot.com">privacy@hmrbot.com</a> با موضوع
+          <em>«درخواست حذف حساب»</em> ارسال کنید و آدرس ایمیل مرتبط با حسابتان را ذکر نمایید.
+          درخواست شما ظرف ۷ روز کاری پردازش می‌شود و تأییدیه ارسال خواهد شد.
+        </span>
+      </p>
+    </div>
+    <p>
+      <span class="en">To delete local conversation history: open the app → tap any conversation → tap the trash icon, or uninstall the app to remove all local data.</span>
+      <span class="fa">برای حذف تاریخچه مکالمات محلی: اپ را باز کنید ← روی هر مکالمه بزنید ← آیکون سطل آشغال را بزنید، یا اپ را پاک کنید تا تمام داده‌های محلی حذف شود.</span>
     </p>
 
-    <h2><span class="en">4. Contact</span><span class="fa">۴. تماس</span></h2>
+    <!-- 6 -->
+    <h2>
+      <span class="en">6. Security</span>
+      <span class="fa">۶. امنیت</span>
+    </h2>
+    <ul>
+      <li>
+        <span class="en">All data transmitted between the app and our servers is encrypted via HTTPS/TLS.</span>
+        <span class="fa">تمام داده‌های منتقل‌شده بین اپ و سرورهای ما با HTTPS/TLS رمزنگاری می‌شود.</span>
+      </li>
+      <li>
+        <span class="en">Local conversation data is stored in an encrypted SQLite database on your device.</span>
+        <span class="fa">داده مکالمات محلی در پایگاه‌داده SQLite رمزنگاری‌شده روی دستگاه شما ذخیره می‌شود.</span>
+      </li>
+      <li>
+        <span class="en">Our backend server (Germany/EU) follows industry-standard security practices.</span>
+        <span class="fa">سرور بکند ما (آلمان/اتحادیه اروپا) از استانداردهای امنیتی صنعت پیروی می‌کند.</span>
+      </li>
+    </ul>
+
+    <!-- 7 -->
+    <h2>
+      <span class="en">7. Children's Privacy</span>
+      <span class="fa">۷. حریم خصوصی کودکان</span>
+    </h2>
     <p>
-      <span class="en">For privacy-related questions, email us at: <a href="mailto:privacy@hmrbot.com" style="color:var(--cyan)">privacy@hmrbot.com</a></span>
-      <span class="fa">برای سوالات مربوط به حریم خصوصی با ما تماس بگیرید: <a href="mailto:privacy@hmrbot.com" style="color:var(--cyan)">privacy@hmrbot.com</a></span>
+      <span class="en">HMR is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it promptly.</span>
+      <span class="fa">همر برای کودکان زیر ۱۳ سال طراحی نشده است. ما آگاهانه اطلاعات شخصی از کودکان جمع‌آوری نمی‌کنیم. اگر فکر می‌کنید کودکی اطلاعات شخصی در اختیار ما گذاشته، با ما تماس بگیرید تا فوراً حذف کنیم.</span>
     </p>
+
+    <!-- 8 -->
+    <h2>
+      <span class="en">8. Price Information Disclaimer</span>
+      <span class="fa">۸. سلب مسئولیت اطلاعات قیمت</span>
+    </h2>
+    <div class="highlight">
+      <p>
+        <span class="en">HMR is an <strong>advisory service only</strong>. Price information provided by the AI is sourced from public Iranian market data and may not reflect current prices. Always verify prices before making a purchase. HMR is not responsible for any purchasing decisions made based on AI responses.</span>
+        <span class="fa">همر تنها یک <strong>سرویس مشاوره</strong> است. اطلاعات قیمت ارائه‌شده توسط هوش مصنوعی از داده‌های عمومی بازار ایران استخراج می‌شود و ممکن است قیمت‌های جاری را منعکس نکند. پیش از خرید همیشه قیمت را تأیید کنید. همر مسئولیتی در قبال تصمیمات خرید بر اساس پاسخ‌های هوش مصنوعی ندارد.</span>
+      </p>
+    </div>
+
+    <!-- 9 -->
+    <h2>
+      <span class="en">9. Changes to This Policy</span>
+      <span class="fa">۹. تغییرات این سیاست</span>
+    </h2>
+    <p>
+      <span class="en">We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</span>
+      <span class="fa">ممکن است این سیاست حریم خصوصی را گاهی به‌روز کنیم. در صورت تغییر، تاریخ «آخرین به‌روزرسانی» در بالای این صفحه را به‌روز خواهیم کرد. ادامه استفاده از اپ پس از تغییرات به منزله پذیرش سیاست به‌روزشده است.</span>
+    </p>
+
+    <!-- 10 -->
+    <h2>
+      <span class="en">10. Contact Us</span>
+      <span class="fa">۱۰. تماس با ما</span>
+    </h2>
+    <p>
+      <span class="en">For privacy-related questions, data deletion requests, or concerns:</span>
+      <span class="fa">برای سوالات مربوط به حریم خصوصی، درخواست حذف داده، یا نگرانی‌ها:</span>
+    </p>
+    <ul>
+      <li>
+        <span class="en">Email: <a href="mailto:privacy@hmrbot.com">privacy@hmrbot.com</a></span>
+        <span class="fa">ایمیل: <a href="mailto:privacy@hmrbot.com">privacy@hmrbot.com</a></span>
+      </li>
+      <li>
+        <span class="en">Website: <a href="https://hmrbot.com/contact">hmrbot.com/contact</a></span>
+        <span class="fa">وب‌سایت: <a href="https://hmrbot.com/contact">hmrbot.com/contact</a></span>
+      </li>
+    </ul>
   </div>
 </Layout>

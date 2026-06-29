@@ -4,11 +4,10 @@
 // Custom chat shell (sidebar · centered orb · glass composer) wired directly
 // to the Flowise prediction API with token streaming + session memory.
 // CORS: in Flowise, set Allowed Origins = https://hmrbot.com for this chatflow.
-const CHATFLOW_ID = import.meta.env.FLOWISE_CHATFLOW_ID ?? 'cb9272bf-2510-4227-ad00-e1fb7fbd7411';
+const CHATFLOW_ID = import.meta.env.FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
 const FLOWISE_API = 'https://srv.hmrbot.com';
 const FLOWISE_API_KEY = import.meta.env.FLOWISE_API_KEY;
-// Improved orb lives in public/assets/hmr-logo.svg (copy it from the design system).
-const LOGO = '/assets/hmr-logo.svg';
+const LOGO = '/assets/hmr-logo.png';
 ---
 <!doctype html>
 <html lang="fa" dir="rtl">
@@ -88,7 +87,9 @@ const LOGO = '/assets/hmr-logo.svg';
       font-weight:700; font-size:1.35rem; line-height:1; letter-spacing:0.04em;
       background:var(--gradient-text); -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent; color:transparent; padding-bottom:.04em;
+      text-decoration:none;
     }
+    .sb-wordmark:hover { opacity:.85; }
     .sb-tools { display:flex; align-items:center; gap:6px; }
     .icon-btn {
       width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;
@@ -251,7 +252,7 @@ const LOGO = '/assets/hmr-logo.svg';
     <aside class="sidebar">
       <div class="sb-top">
         <div class="sb-brand-row">
-          <div class="sb-wordmark">HMR</div>
+          <a class="sb-wordmark" href="https://hmrbot.com" target="_blank" rel="noopener">HMR</a>
           <div class="sb-tools">
             <button class="icon-btn" aria-label="جستجو" title="جستجو">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
