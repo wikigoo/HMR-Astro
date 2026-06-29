@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect('/blog');
@@ -9,7 +9,7 @@ const post = await getEntry('blog', slug);
 if (!post) return Astro.redirect('/blog');
 
 const { title, pubDate, pillar, tags, summary, source, sourceName, heroImage } = post.data;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <Layout title={`${title} — بلاگ همر`} description={summary}>

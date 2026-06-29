@@ -7,7 +7,7 @@ const posts = await getCollection('blog', ({ data }) => {
 });
 
 // Sort by pubDate descending
-posts.sort((a, b) => b.data.pubDate.localeCompare(a.data.pubDate));
+posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const pillarColors: Record<string, string> = {
   'راهنمای خرید گوشی نو': 'var(--hmr-cyan)',
@@ -189,7 +189,7 @@ const pillarColors: Record<string, string> = {
                 {post.data.pillar}
               </span>
               <h2>
-                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
               </h2>
               <p class="summary">{post.data.summary}</p>
               <div class="meta">
