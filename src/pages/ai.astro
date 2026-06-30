@@ -1,11 +1,8 @@
 ---
 // src/pages/ai.astro
 // HMR — full-page AI advisor at /ai.
-// Custom chat shell (sidebar · centered orb · glass composer) wired directly
-// to the Flowise prediction API with token streaming + session memory.
-// CORS: in Flowise, set Allowed Origins = https://hmrbot.com for this chatflow.
-const CHATFLOW_ID = import.meta.env.FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
-const FLOWISE_API = 'https://srv.hmrbot.com';
+// Chatbot uses /api/chat server-side proxy — Flowise URL and API key
+// never leave the Cloudflare Worker.
 const LOGO = '/assets/hmr-avatar.png';
 ---
 <!doctype html>
