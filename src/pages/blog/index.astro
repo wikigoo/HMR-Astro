@@ -185,7 +185,7 @@ const pillarColors: Record<string, string> = {
               <h2>
                 <a href={`/blog/${post.id}`}>{post.data.title}</a>
               </h2>
-              <p class="summary">{post.data.summary}</p>
+              <p class="summary">{post.data.description || post.data.summary}</p>
               <div class="meta">
                 <span>{new Date(post.data.pubDate).toLocaleDateString('fa-IR')}</span>
                 <div class="tags">
