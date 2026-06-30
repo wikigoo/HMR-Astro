@@ -2,8 +2,22 @@ import type { APIRoute } from 'astro';
 
 const FLOWISE_URL = 'https://srv.hmrbot.com';
 const MAX_CHARS = 2000;
+const ALLOWED_ORIGIN = 'https://hmrbot.com';
+
+export const OPTIONS: APIRoute = ({ request }) => {
+  const origin = request.headers.get('origin') ?? '';
+  if (origin !== ALLOWED_ORIGIN) return new Response(null, { status: 403 });
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders(origin),
+  });
+};
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  const origin = request.headers.get('origin') ?? '';
+  if (origin && origin !== ALLOWED_ORIGIN) {
+    return json({ error: 'دسترسی مجاز نیست' }, 403);
+  }
   const env = (locals as any).runtime?.env ?? {};
   const CHATFLOW_ID: string = env.FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
   const FLOWISE_API_KEY: string = env.FLOWISE_API_KEY ?? '';
@@ -41,6 +55,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   // Stream the SSE response back to the client
+  const origin = request.headers.get('origin') ?? '';
   const ct = upstream.headers.get('content-type') ?? 'text/event-stream';
   return new Response(upstream.body, {
     status: 200,
@@ -48,9 +63,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
       'Content-Type': ct,
       'Cache-Control': 'no-cache, no-store',
       'X-Accel-Buffering': 'no',
+      ...corsHeaders(origin),
     },
   });
 };
+
+function corsHeaders(origin: string): Record<string, string> {
+  if (origin !== ALLOWED_ORIGIN) return {};
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+}
 
 function json(data: object, status: number) {
   return new Response(JSON.stringify(data), {
