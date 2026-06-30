@@ -504,9 +504,9 @@ const LOGO = '/assets/hmr-avatar.png';
         let acc = '';
 
         try {
-          const res = await fetch(FLOWISE_API + '/api/v1/prediction/' + CHATFLOW_ID, {
+          const res = await fetch('/api/chat', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question: text, streaming: true, chatId: sessionId, overrideConfig: { sessionId } })
+            body: JSON.stringify({ question: text, sessionId })
           });
 
           const ct = res.headers.get('content-type') || '';
