@@ -535,7 +535,11 @@ const LOGO = '/assets/hmr-avatar.png';
             b.innerHTML = md(acc);
           }
         } catch (err) {
-          b.innerHTML = md('در حال حاضر به مشکل برخوردم. لطفاً دوباره تلاش کن.');
+          const isTimeout = err instanceof DOMException && err.name === 'AbortError';
+          const msg = isTimeout
+            ? 'زمان انتظار تمام شد. لطفاً دوباره تلاش کن.'
+            : 'در حال حاضر به مشکل برخوردم. چند لحظه صبر کن و دوباره ارسال کن.';
+          b.innerHTML = `<span style="color:var(--hmr-pink,#f06)">${msg}</span>`;
         } finally {
           busy = false; autosize(); input.focus();
           messages.scrollTop = messages.scrollHeight;
