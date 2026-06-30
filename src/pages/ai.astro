@@ -489,9 +489,12 @@ const LOGO = '/assets/hmr-logo.png';
         return out;
       }
 
+      const MAX_INPUT_CHARS = 2000;
+
       async function send() {
-        const text = input.value.trim();
-        if (!text || busy) return;
+        const raw = input.value.trim();
+        if (!raw || busy) return;
+        const text = raw.slice(0, MAX_INPUT_CHARS);
         busy = true;
         enterChatMode();
 

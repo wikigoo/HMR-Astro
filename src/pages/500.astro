@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="۵۰۰ - خطای سرور | همر">
+  <style>
+    .error-container {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+    .error-card {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 28px;
+      padding: 48px 36px;
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+    .error-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 160px;
+      background: rgba(255, 80, 120, 0.08);
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .error-code {
+      font-size: clamp(4rem, 15vw, 6rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff5078 0%, #ff9060 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .error-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-body);
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+    .error-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 420px) {
+      .error-actions { flex-direction: row; justify-content: center; }
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 24px; border-radius: 12px; font-weight: 600;
+      font-size: 0.9rem; text-decoration: none; transition: transform .2s;
+      background: var(--gradient-cta); color: var(--text-on-accent);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 24px; border-radius: 12px; font-weight: 500;
+      font-size: 0.9rem; text-decoration: none; transition: color .2s, background .2s;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+    .btn-secondary:hover { color: var(--hmr-cyan); border-color: var(--hmr-cyan); }
+  </style>
+
+  <div class="error-container">
+    <div class="error-card">
+      <div class="error-code">۵۰۰</div>
+      <h1 class="error-title">خطای داخلی سرور</h1>
+      <p class="error-desc">
+        مشکلی در سرور همر پیش آمده است.<br />
+        تیم فنی در حال بررسی است. لطفاً چند لحظه دیگر دوباره تلاش کنید.
+      </p>
+      <div class="error-actions">
+        <a href="/ai" class="btn-primary">مشاور هوشمند</a>
+        <a href="/" class="btn-secondary">بازگشت به خانه</a>
+      </div>
+    </div>
+  </div>
+</Layout>

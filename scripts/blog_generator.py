@@ -545,40 +545,55 @@ def send_to_telegram(
     caption = caption[:1020]
 
     LOG.info("  📨 Sending to Telegram channel %s…", channel_id)
-    try:
-        if image_path and image_path.exists():
-            with open(image_path, "rb") as img_file:
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        try:
+            if image_path and image_path.exists():
+                with open(image_path, "rb") as img_file:
+                    resp = requests.post(
+                        f"{base_url}/sendPhoto",
+                        data={
+                            "chat_id": channel_id,
+                            "caption": caption,
+                            "parse_mode": "HTML",
+                        },
+                        files={"photo": (image_path.name, img_file, "image/jpeg")},
+                        timeout=60,
+                    )
+            else:
                 resp = requests.post(
-                    f"{base_url}/sendPhoto",
-                    data={
+                    f"{base_url}/sendMessage",
+                    json={
                         "chat_id": channel_id,
-                        "caption": caption,
+                        "text": caption,
                         "parse_mode": "HTML",
+                        "disable_web_page_preview": False,
                     },
-                    files={"photo": (image_path.name, img_file, "image/jpeg")},
-                    timeout=60,
+                    timeout=30,
                 )
-        else:
-            resp = requests.post(
-                f"{base_url}/sendMessage",
-                json={
-                    "chat_id": channel_id,
-                    "text": caption,
-                    "parse_mode": "HTML",
-                    "disable_web_page_preview": False,
-                },
-                timeout=30,
-            )
-    except requests.RequestException as exc:
-        LOG.error("  ✗ Telegram request failed: %s", exc)
-        return False
+        except requests.RequestException as exc:
+            LOG.warning("  ✗ Telegram attempt %d/%d failed: %s", attempt, max_retries, exc)
+            if attempt < max_retries:
+                time.sleep(2 ** attempt)
+                continue
+            LOG.error("  ✗ Telegram: all retries exhausted")
+            return False
 
-    if resp.status_code == 200:
-        LOG.info("  ✓ Published to Telegram channel")
-        return True
-    else:
-        LOG.error("  ✗ Telegram HTTP %d: %s", resp.status_code, resp.text[:400])
-        return False
+        if resp.status_code == 200:
+            LOG.info("  ✓ Published to Telegram channel (attempt %d)", attempt)
+            return True
+        elif resp.status_code == 429:
+            retry_after = int(resp.json().get("parameters", {}).get("retry_after", 2 ** attempt))
+            LOG.warning("  ⏳ Telegram rate-limited — waiting %ds (attempt %d/%d)", retry_after, attempt, max_retries)
+            time.sleep(retry_after)
+        else:
+            LOG.error("  ✗ Telegram HTTP %d: %s", resp.status_code, resp.text[:400])
+            if attempt < max_retries:
+                time.sleep(2 ** attempt)
+            else:
+                return False
+
+    return False
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -761,11 +776,14 @@ def write_astro_article(
     # Hero image web path (served from /public/blog/images/)
     hero_image_web = f"/blog/images/{hero_image.name}" if hero_image else ""
 
+    description_yaml = summary_yaml[:160] if summary_yaml else title_yaml
+
     frontmatter = f"""---
 title: "{title_yaml}"
 pubDate: {today}
 pillar: "{pillar['title_fa']}"
 tags: {json.dumps(tags, ensure_ascii=False)}
+description: "{description_yaml}"
 summary: "{summary_yaml}"
 source: "{source_entry['link']}"
 sourceName: "{source_entry['source_name']}"
@@ -877,8 +895,9 @@ def run_pipeline(
             continue
 
         title, body = extract_title_and_body(raw)
-        if not body or len(body) < 100:
-            LOG.warning("  ✗ Article too short (%d chars); skipping", len(body))
+        word_count = len(body.split()) if body else 0
+        if not body or word_count < 200:
+            LOG.warning("  ✗ Article too short (%d words); skipping (min: 200)", word_count)
             summary["errors"] += 1
             continue
 

@@ -24,6 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ADMIN: ${{ secrets.TELEGRAM_CHANNEL_ADMIN }}
 
     steps:
       - name: Checkout repo
@@ -75,3 +78,10 @@ jobs:
             git push
             echo "Published $COUNT new article(s) and pushed to main."
           fi
+
+      - name: Alert operator on failure
+        if: failure()
+        run: |
+          MSG="⚠️ خطا در pipeline بلاگ همر%0Aتاریخ: $(date '+%Y-%m-%d %H:%M UTC')%0Aبرنچ: ${{ github.ref_name }}%0Aلینک: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHANNEL_ADMIN}&text=${MSG}&parse_mode=HTML" || true

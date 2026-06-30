@@ -8,11 +8,28 @@ if (!slug) return Astro.redirect('/blog');
 const post = await getEntry('blog', slug);
 if (!post) return Astro.redirect('/blog');
 
-const { title, pubDate, pillar, tags, summary, source, sourceName, heroImage } = post.data;
+const { title, pubDate, pillar, tags, description, summary, source, sourceName, heroImage } = post.data;
 const { Content } = await render(post);
+const postUrl = `https://hmrbot.com/blog/${slug}`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: description || summary,
+  datePublished: new Date(pubDate).toISOString(),
+  inLanguage: 'fa',
+  url: postUrl,
+  author: { '@type': 'Organization', name: 'همر', url: 'https://hmrbot.com' },
+  publisher: { '@type': 'Organization', name: 'همر', url: 'https://hmrbot.com' },
+  ...(heroImage && heroImage !== '' ? { image: `https://hmrbot.com${heroImage}` } : {}),
+  keywords: tags.join(', '),
+};
 ---
 
-<Layout title={`${title} — بلاگ همر`} description={summary}>
+<Layout title={`${title} — بلاگ همر`} description={description || summary} ogImage={heroImage || '/assets/hmr-og.png'}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
   <style>
     .article-container {
       max-width: 760px;

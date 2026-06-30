@@ -4,9 +4,16 @@ import '../styles/styles.css';
 export interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
   hideNav?: boolean;
 }
-const { title, description = 'همر | هوش مصنوعی موبایل — مشاور خرید Samsung، Apple و Xiaomi', hideNav = false } = Astro.props;
+const {
+  title,
+  description = 'همر | هوش مصنوعی موبایل — مشاور خرید Samsung، Apple و Xiaomi',
+  ogImage = '/assets/hmr-og.png',
+  hideNav = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, 'https://hmrbot.com').href;
 ---
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -15,7 +22,27 @@ const { title, description = 'همر | هوش مصنوعی موبایل — مش
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="icon" type="image/png" href="/assets/hmr-logo.png" />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={`https://hmrbot.com${ogImage}`} />
+  <meta property="og:locale" content="fa_IR" />
+  <meta property="og:site_name" content="همر" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`https://hmrbot.com${ogImage}`} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/assets/hmr-logo.png" />
+  <slot name="head" />
   <style is:global>
     /* Compatibility aliases — map old shorthand to HMR design tokens */
     :root {
