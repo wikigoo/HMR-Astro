@@ -55,7 +55,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   // Stream the SSE response back to the client
-  const origin = request.headers.get('origin') ?? '';
   const ct = upstream.headers.get('content-type') ?? 'text/event-stream';
   return new Response(upstream.body, {
     status: 200,
