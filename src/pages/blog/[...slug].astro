@@ -2,6 +2,16 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 
+// Prerendered (not per-request SSR): these are static, periodically-generated
+// articles, and @astrojs/sitemap can only discover routes with a known,
+// fixed path at build time — a pure SSR [...slug] route is invisible to it.
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id } }));
+}
+
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect('/blog');
 
