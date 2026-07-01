@@ -1,21 +1,59 @@
 import { defineMiddleware } from 'astro:middleware';
 
+// Kept in sync with public/_headers (which only covers static assets served
+// via the ASSETS binding). output:'server' means every other response is
+// rendered by this Worker, so security headers must be set here too.
+const CSP =
+  "default-src 'self'; " +
+  "script-src 'self' 'unsafe-inline' https://accounts.google.com; " +
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+  "font-src 'self' https://fonts.gstatic.com; " +
+  "img-src 'self' data: https:; " +
+  "connect-src 'self' https://srv.hmrbot.com https://accounts.google.com; " +
+  "frame-src https://accounts.google.com; " +
+  "object-src 'none'; " +
+  "base-uri 'self'";
+
+const SECURITY_HEADERS: Record<string, string> = {
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+  'Content-Security-Policy': CSP,
+};
+
+function withSecurityHeaders(response: Response): Response {
+  const headers = new Headers(response.headers);
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    headers.set(name, value);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const host = context.request.headers.get('host') ?? '';
 
   // T030: redirect www to apex
   if (host.startsWith('www.')) {
     const url = context.url;
-    return context.redirect(`https://hmrbot.com${url.pathname}${url.search}`, 301);
+    return withSecurityHeaders(
+      context.redirect(`https://hmrbot.com${url.pathname}${url.search}`, 301),
+    );
   }
 
   if (host.startsWith('chat.') && context.url.pathname === '/') {
-    return context.redirect('/chat', 302);
+    return withSecurityHeaders(context.redirect('/chat', 302));
   }
 
   if (host.startsWith('blog.') && context.url.pathname === '/') {
-    return context.redirect('https://blog.hmrbot.com', 302);
+    return withSecurityHeaders(context.redirect('https://blog.hmrbot.com', 302));
   }
 
-  return next();
+  const response = await next();
+  return withSecurityHeaders(response);
 });
