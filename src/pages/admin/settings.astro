@@ -1,0 +1,46 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+const error = Astro.url.searchParams.get('error');
+const ok = Astro.url.searchParams.get('ok') === '1';
+
+const errorMsg: Record<string, string> = {
+  short:    'رمز عبور جدید باید حداقل ۸ کاراکتر باشد.',
+  mismatch: 'رمز عبور جدید و تأیید آن یکسان نیستند.',
+  wrong:    'رمز عبور فعلی اشتباه است.',
+  nokv:     'خطای داخلی: KV namespace در دسترس نیست.',
+};
+---
+<AdminLayout title="تنظیمات">
+  <h1>تنظیمات</h1>
+
+  <div class="admin-card">
+    <h2 style="margin-bottom:16px;">تغییر رمز عبور</h2>
+    {ok && (
+      <p style="color:var(--hmr-cyan); margin-bottom:14px;">✅ رمز عبور با موفقیت تغییر یافت.</p>
+    )}
+    {error && (
+      <p class="error">{errorMsg[error] ?? 'خطای ناشناخته'}</p>
+    )}
+    <form method="POST" action="/api/admin/change-password">
+      <label for="current">رمز عبور فعلی</label>
+      <input type="password" id="current" name="current" required autocomplete="current-password" />
+
+      <label for="next">رمز عبور جدید (حداقل ۸ کاراکتر)</label>
+      <input type="password" id="next" name="next" required minlength="8" autocomplete="new-password" />
+
+      <label for="confirm">تأیید رمز عبور جدید</label>
+      <input type="password" id="confirm" name="confirm" required minlength="8" autocomplete="new-password" />
+
+      <button type="submit">ذخیره رمز عبور</button>
+    </form>
+  </div>
+
+  <div class="admin-card">
+    <h2 style="margin-bottom:10px;">اطلاعات محیطی</h2>
+    <p style="color:var(--text-secondary); font-size:.9rem;">
+      متغیرهای محیطی (<code>ADMIN_USERNAME</code>، <code>FLOWISE_CHATFLOW_ID</code> و …) از طریق
+      Cloudflare Worker Secrets مدیریت می‌شوند. رمز عبور جدید در KV ذخیره می‌شود و اولویت دارد.
+    </p>
+  </div>
+</AdminLayout>

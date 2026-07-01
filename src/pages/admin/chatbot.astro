@@ -2,28 +2,51 @@
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { env } from 'cloudflare:workers';
 
-const chatflowId = (env as any).FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
+const chatflowId: string = (env as any).FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
 const apiKeyConfigured = Boolean((env as any).FLOWISE_API_KEY);
+
+// Live health check — ping Flowise
+type HealthStatus = 'online' | 'offline' | 'unknown';
+let flowiseStatus: HealthStatus = 'unknown';
+try {
+  const res = await fetch('https://srv.hmrbot.com/api/v1/ping', {
+    signal: AbortSignal.timeout(5000),
+  });
+  flowiseStatus = res.ok ? 'online' : 'offline';
+} catch {
+  flowiseStatus = 'offline';
+}
+
+const statusLabel: Record<HealthStatus, string> = {
+  online:  '✅ آنلاین',
+  offline: '❌ آفلاین',
+  unknown: '⚠️ نامشخص',
+};
 ---
 <AdminLayout title="چت‌بات">
   <h1>چت‌بات</h1>
   <p style="color:var(--text-secondary); margin-bottom:24px;">
-    این صفحه فقط پیکربندی غیرحساس فعلی را نشان می‌دهد. برای تغییر پرامپت/فلو، مستقیماً به Flowise
-    (<code>srv.hmrbot.com</code>) مراجعه کن — مدیریت فلو از این پنل پشتیبانی نمی‌شود.
+    برای تغییر پرامپت یا فلو، مستقیماً به Flowise (<code>srv.hmrbot.com</code>) مراجعه کن.
   </p>
 
   <div class="admin-card">
+    <h2 style="margin-bottom:14px;">وضعیت سرویس</h2>
     <table>
       <tbody>
+        <tr><th style="width:40%">وضعیت Flowise</th><td>{statusLabel[flowiseStatus]}</td></tr>
         <tr><th>آدرس بک‌اند</th><td>srv.hmrbot.com</td></tr>
-        <tr><th>Chatflow ID فعال</th><td>{chatflowId}</td></tr>
+        <tr>
+          <th>Chatflow ID فعال</th>
+          <td style="font-family:monospace; font-size:.82rem; word-break:break-all;">{chatflowId}</td>
+        </tr>
         <tr><th>API Key</th><td>{apiKeyConfigured ? '✅ تنظیم شده' : '⚠️ تنظیم نشده'}</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="admin-card">
-    <h2 style="margin-bottom:10px;">بررسی سریع</h2>
-    <p><a class="link" href="https://hmrbot.com/api/health" target="_blank" rel="noopener">/api/health ←</a></p>
+    <h2 style="margin-bottom:12px;">لینک‌های مدیریت</h2>
+    <p><a class="link" href="https://hmrbot.com/api/health" target="_blank" rel="noopener">🔗 /api/health سایت ←</a></p>
+    <p style="margin-top:8px;"><a class="link" href="https://srv.hmrbot.com" target="_blank" rel="noopener">🔗 Flowise Dashboard ←</a></p>
   </div>
 </AdminLayout>

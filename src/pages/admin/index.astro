@@ -2,33 +2,70 @@
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getCollection } from 'astro:content';
 
-const user = Astro.locals.user; // set by src/middleware.ts
+const user = Astro.locals.user;
 const posts = await getCollection('blog');
-const latest = [...posts].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
+const latest = [...posts]
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 5);
+
+// Quick health checks (parallel, 4 s timeout each)
+const [siteRes, chatRes] = await Promise.allSettled([
+  fetch('https://hmrbot.com/api/health',        { signal: AbortSignal.timeout(4000) }),
+  fetch('https://srv.hmrbot.com/api/v1/ping',   { signal: AbortSignal.timeout(4000) }),
+]);
+
+const siteOk  = siteRes.status  === 'fulfilled' && siteRes.value.ok;
+const chatOk  = chatRes.status  === 'fulfilled' && chatRes.value.ok;
 ---
 <AdminLayout title="داشبورد">
   <h1>خوش آمدید، {user?.username}</h1>
-  <p style="color:var(--text-secondary); margin-bottom:24px;">پنل مدیریت داخلی همر — وضعیت سایت و دسترسی سریع به بخش‌ها.</p>
+  <p style="color:var(--text-secondary); margin-bottom:24px;">
+    پنل مدیریت داخلی همر — وضعیت سایت و دسترسی سریع به بخش‌ها.
+  </p>
+
+  <!-- Stats row -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:20px;">
+    <div class="admin-card" style="margin-bottom:0; text-align:center; padding:18px;">
+      <div style="font-size:2rem; font-weight:700;">{posts.length}</div>
+      <div style="color:var(--text-secondary); font-size:.82rem; margin-top:4px;">مقاله بلاگ</div>
+    </div>
+    <div class="admin-card" style="margin-bottom:0; text-align:center; padding:18px;">
+      <div style="font-size:1.7rem;">{siteOk ? '✅' : '❌'}</div>
+      <div style="color:var(--text-secondary); font-size:.82rem; margin-top:4px;">hmrbot.com</div>
+    </div>
+    <div class="admin-card" style="margin-bottom:0; text-align:center; padding:18px;">
+      <div style="font-size:1.7rem;">{chatOk ? '✅' : '❌'}</div>
+      <div style="color:var(--text-secondary); font-size:.82rem; margin-top:4px;">Flowise</div>
+    </div>
+  </div>
 
   <div class="admin-card">
-    <h2 style="margin-bottom:14px;">آخرین مقالات بلاگ ({posts.length} مقاله)</h2>
+    <h2 style="margin-bottom:14px;">آخرین مقالات بلاگ</h2>
     <table>
       <thead><tr><th>عنوان</th><th>تاریخ انتشار</th></tr></thead>
       <tbody>
         {latest.map((post) => (
           <tr>
-            <td><a class="link" href={`/blog/${post.id}`} target="_blank" rel="noopener">{post.data.title}</a></td>
+            <td>
+              <a class="link" href={`/blog/${post.id}`} target="_blank" rel="noopener">
+                {post.data.title}
+              </a>
+            </td>
             <td>{new Date(post.data.pubDate).toLocaleDateString('fa-IR')}</td>
           </tr>
         ))}
       </tbody>
     </table>
-    <p style="margin-top:16px;"><a class="link" href="/admin/blog">مشاهده همه مقالات ←</a></p>
+    <p style="margin-top:16px;">
+      <a class="link" href="/admin/blog">مشاهده همه و تولید مقاله جدید ←</a>
+    </p>
   </div>
 
   <div class="admin-card">
     <h2 style="margin-bottom:10px;">چت‌بات</h2>
-    <p style="color:var(--text-secondary); margin-bottom:12px;">وضعیت و تنظیمات پایه‌ی چت‌بات Flowise.</p>
+    <p style="color:var(--text-secondary); margin-bottom:12px;">
+      وضعیت: {chatOk ? 'آنلاین ✅' : 'آفلاین ❌'} — تنظیمات و Chatflow ID فعال.
+    </p>
     <p><a class="link" href="/admin/chatbot">مشاهده جزئیات ←</a></p>
   </div>
 </AdminLayout>
