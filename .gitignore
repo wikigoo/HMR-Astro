@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# local wrangler/miniflare dev state (deploy config, local KV/cache/images sim)
+.wrangler/
+
 # dependencies
 node_modules/
 
