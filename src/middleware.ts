@@ -50,6 +50,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return withSecurityHeaders(context.redirect('/chat', 302));
   }
 
+<<<<<<< HEAD
+=======
   // Auth guard for the admin dashboard -- covers both the dashboard pages
   // (/admin/*) and their API endpoints (/api/admin/*); the login page and
   // its own POST handler are the exceptions. startsWith (not ===) so every
@@ -73,6 +75,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.user = user;
   }
 
+>>>>>>> main
   const response = await next();
   return withSecurityHeaders(response);
 });
