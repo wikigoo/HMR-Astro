@@ -1,0 +1,36 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getCollection } from 'astro:content';
+
+// NOTE: this collection uses the `glob` loader, so the entry identifier is
+// `post.id` (derived from the filename), not `post.slug` -- there is no
+// `slug` field on entries here.
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+---
+<AdminLayout title="بلاگ">
+  <h1>مدیریت بلاگ</h1>
+  <p style="color:var(--text-secondary); margin-bottom:24px;">
+    مقالات به‌صورت خودکار توسط پایپ‌لاین هوش مصنوعی (<code>scripts/blog_generator.py</code>) تولید و مستقیماً روی
+    GitHub منتشر می‌شوند. این صفحه فقط برای مشاهده است — ویرایش/حذف باید از طریق مخزن گیت‌هاب انجام شود.
+  </p>
+
+  <div class="admin-card">
+    <table>
+      <thead>
+        <tr><th>عنوان</th><th>محور</th><th>تاریخ انتشار</th><th></th></tr>
+      </thead>
+      <tbody>
+        {posts.map((post) => (
+          <tr>
+            <td>{post.data.title}</td>
+            <td>{post.data.pillar}</td>
+            <td>{new Date(post.data.pubDate).toLocaleDateString('fa-IR')}</td>
+            <td><a class="link" href={`/blog/${post.id}`} target="_blank" rel="noopener">مشاهده ←</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</AdminLayout>

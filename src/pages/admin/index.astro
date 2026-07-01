@@ -1,0 +1,34 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getCollection } from 'astro:content';
+
+const user = Astro.locals.user; // set by src/middleware.ts
+const posts = await getCollection('blog');
+const latest = [...posts].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
+---
+<AdminLayout title="داشبورد">
+  <h1>خوش آمدید، {user?.username}</h1>
+  <p style="color:var(--text-secondary); margin-bottom:24px;">پنل مدیریت داخلی همر — وضعیت سایت و دسترسی سریع به بخش‌ها.</p>
+
+  <div class="admin-card">
+    <h2 style="margin-bottom:14px;">آخرین مقالات بلاگ ({posts.length} مقاله)</h2>
+    <table>
+      <thead><tr><th>عنوان</th><th>تاریخ انتشار</th></tr></thead>
+      <tbody>
+        {latest.map((post) => (
+          <tr>
+            <td><a class="link" href={`/blog/${post.id}`} target="_blank" rel="noopener">{post.data.title}</a></td>
+            <td>{new Date(post.data.pubDate).toLocaleDateString('fa-IR')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p style="margin-top:16px;"><a class="link" href="/admin/blog">مشاهده همه مقالات ←</a></p>
+  </div>
+
+  <div class="admin-card">
+    <h2 style="margin-bottom:10px;">چت‌بات</h2>
+    <p style="color:var(--text-secondary); margin-bottom:12px;">وضعیت و تنظیمات پایه‌ی چت‌بات Flowise.</p>
+    <p><a class="link" href="/admin/chatbot">مشاهده جزئیات ←</a></p>
+  </div>
+</AdminLayout>
