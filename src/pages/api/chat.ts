@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 const FLOWISE_URL = 'https://srv.hmrbot.com';
 const MAX_CHARS = 2000;
@@ -13,14 +14,13 @@ export const OPTIONS: APIRoute = ({ request }) => {
   });
 };
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   const origin = request.headers.get('origin') ?? '';
   if (origin && origin !== ALLOWED_ORIGIN) {
     return json({ error: 'دسترسی مجاز نیست' }, 403);
   }
-  const env = (locals as any).runtime?.env ?? {};
-  const CHATFLOW_ID: string = env.FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
-  const FLOWISE_API_KEY: string = env.FLOWISE_API_KEY ?? '';
+  const CHATFLOW_ID: string = (env as any).FLOWISE_CHATFLOW_ID ?? '463b566b-f0f1-44d8-b498-3827c188783a';
+  const FLOWISE_API_KEY: string = (env as any).FLOWISE_API_KEY ?? '';
 
   // Parse and validate body
   let body: Record<string, unknown>;

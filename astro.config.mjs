@@ -11,11 +11,15 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      // /ai is noindex,nofollow by design; /chat is a pure redirect to /ai.
-      // Neither should be in the sitemap.
+      // /ai is noindex,nofollow by design; /chat is a pure redirect to /ai;
+      // /admin/* is the auth-gated dashboard. None belong in the sitemap.
       filter: (page) => {
         const { pathname } = new URL(page);
-        return pathname !== '/ai/' && pathname !== '/chat/';
+        return (
+          pathname !== '/ai/' &&
+          pathname !== '/chat/' &&
+          !pathname.startsWith('/admin/')
+        );
       },
     }),
   ],

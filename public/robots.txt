@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /ai
+Disallow: /admin
 
 Sitemap: https://hmrbot.com/sitemap-index.xml
