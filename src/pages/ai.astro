@@ -17,7 +17,9 @@ const LOGO = '/assets/hmr-avatar.png';
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" />
   <script>
     window.onGoogleLibraryLoad = function () {
-      google.accounts.id.initialize({
+      // guaranteed defined here: this callback only runs once Google's own
+      // script has loaded and calls it
+      window.google!.accounts.id.initialize({
         client_id: '829078792642-s6gjq5i0bmq8bne395bcrta0lkjevvir.apps.googleusercontent.com',
         callback: function (res) { if (window.__hmrOnCredential) window.__hmrOnCredential(res); },
         auto_select: false,
