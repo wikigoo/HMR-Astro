@@ -50,10 +50,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return withSecurityHeaders(context.redirect('/chat', 302));
   }
 
-  if (host.startsWith('blog.') && context.url.pathname === '/') {
-    return withSecurityHeaders(context.redirect('https://blog.hmrbot.com', 302));
-  }
-
   const response = await next();
   return withSecurityHeaders(response);
 });
