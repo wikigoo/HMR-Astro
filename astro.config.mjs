@@ -7,6 +7,7 @@ export default defineConfig({
   site: 'https://hmrbot.com',
   adapter: cloudflare(),
   output: 'server',
+  prefetch: true,
   integrations: [
     react(),
     sitemap({
