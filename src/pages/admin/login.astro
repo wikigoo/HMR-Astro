@@ -1,0 +1,22 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+// Redirect already-logged-in users away from the login page
+const user = await Astro.session?.get('user');
+if (user) return Astro.redirect('/admin');
+
+const failed = Astro.url.searchParams.get('error') === '1';
+---
+<AdminLayout title="ورود" showNav={false}>
+  <div class="admin-card" style="max-width:380px; margin:80px auto 0;">
+    <h1>ورود به پنل مدیریت</h1>
+    {failed && <p class="error">نام کاربری یا رمز عبور اشتباه است.</p>}
+    <form method="POST" action="/api/admin/login">
+      <label for="username">نام کاربری</label>
+      <input type="text" id="username" name="username" autocomplete="username" required />
+      <label for="password">رمز عبور</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required />
+      <button type="submit">ورود</button>
+    </form>
+  </div>
+</AdminLayout>

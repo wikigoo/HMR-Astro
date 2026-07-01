@@ -181,7 +181,7 @@ const LOGO = '/assets/hmr-avatar.png';
     .composer:focus-within { border-color:var(--border-glow); box-shadow:0 18px 50px rgba(0,0,0,.45), 0 0 0 1px var(--border-glow), 0 0 40px rgba(0,212,255,.14); }
     .composer textarea {
       flex:1; resize:none; border:0; outline:0; background:transparent; color:var(--text-body);
-      font-family:var(--font-fa); font-size:1.02rem; line-height:1.7; max-height:180px; padding:8px 4px;
+      font-family:var(--font-fa); font-size:16px; line-height:1.7; max-height:180px; padding:8px 4px;
     }
     .composer textarea::placeholder { color:var(--text-muted); }
     .send-btn {
@@ -223,11 +223,25 @@ const LOGO = '/assets/hmr-avatar.png';
     .bubble { padding:13px 16px; border-radius:16px; line-height:1.85; font-size:1rem; max-width:80%; word-break:break-word; }
     .msg.assistant .bubble { background:var(--surface-card); border:1px solid var(--border-subtle); color:var(--text-body); border-top-right-radius:6px; }
     .msg.user .bubble { background:var(--accent-2); color:#fff; border-top-left-radius:6px; white-space:pre-wrap; }
-    /* markdown-ish output from the model */
+    /* markdown output */
     .msg.assistant .bubble p { margin:0 0 8px; } .msg.assistant .bubble p:last-child { margin:0; }
     .msg.assistant .bubble ul, .msg.assistant .bubble ol { margin:6px 1.2em 8px 0; padding:0; }
+    .msg.assistant .bubble li { margin-bottom:4px; }
     .msg.assistant .bubble a { color:var(--accent); }
     .msg.assistant .bubble strong { color:#fff; }
+    .msg.assistant .bubble code {
+      background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.2);
+      border-radius:5px; padding:1px 6px; font-size:.92em; font-family:monospace;
+    }
+    .msg.assistant .bubble pre {
+      background:rgba(0,0,0,0.4); border:1px solid var(--border-subtle); border-radius:10px;
+      padding:12px 14px; overflow-x:auto; margin:8px 0;
+    }
+    .msg.assistant .bubble pre code { background:none; border:none; padding:0; font-size:.88em; }
+    .msg.assistant .bubble table { border-collapse:collapse; width:100%; margin:8px 0; font-size:.9em; }
+    .msg.assistant .bubble th, .msg.assistant .bubble td { border:1px solid var(--border-subtle); padding:6px 10px; text-align:right; }
+    .msg.assistant .bubble th { background:var(--surface-well); color:var(--text-body); }
+    .msg-error { color:#ff6b6b; font-size:.9rem; }
     .typing { display:inline-flex; gap:5px; padding:4px 2px; }
     .typing i { width:7px; height:7px; border-radius:50%; background:var(--accent); opacity:.5; animation:blink 1.2s infinite; }
     .typing i:nth-child(2) { animation-delay:.2s; } .typing i:nth-child(3) { animation-delay:.4s; }
@@ -308,13 +322,16 @@ const LOGO = '/assets/hmr-avatar.png';
           <h1 class="hero-title">امروز چطور می‌تونم کمکت کنم؟</h1>
         </div>
         <div class="convo-wrap">
-          <div class="messages" id="messages"><div class="messages-inner" id="messages-inner"></div></div>
+          <!-- aria-live so screen readers announce new messages -->
+          <div class="messages" id="messages">
+            <div class="messages-inner" id="messages-inner" aria-live="polite" aria-atomic="false"></div>
+          </div>
         </div>
       </div>
 
       <div class="dock" id="dock">
         <div class="composer">
-          <textarea id="input" rows="1" placeholder="سؤالت درباره‌ی هر گوشی‌ای رو بپرس…"></textarea>
+          <textarea id="input" rows="1" placeholder="سؤالت درباره‌ی هر گوشی‌ای رو بپرس… (Shift+Enter برای خط جدید)"></textarea>
           <button class="send-btn" id="send" aria-label="ارسال" disabled>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
           </button>
@@ -343,7 +360,7 @@ const LOGO = '/assets/hmr-avatar.png';
       function resize() {
         W = c.clientWidth = window.innerWidth; H = c.clientHeight = window.innerHeight;
         c.width = W * DPR; c.height = H * DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
-        var n = Math.round(Math.min(90, (W*H)/16000)); nodes = [];
+        var n = Math.round(Math.min(60, (W*H)/20000)); nodes = [];
         for (var i=0;i<n;i++) nodes.push({ x:Math.random()*W, y:Math.random()*H,
           vx:(Math.random()-.5)*.32, vy:(Math.random()-.5)*.32, r:Math.random()*1.6+.8, pulse:Math.random()*Math.PI*2 });
       }
@@ -379,7 +396,10 @@ const LOGO = '/assets/hmr-avatar.png';
 
       // Stable per-browser session so the bot keeps conversational memory.
       let sessionId = localStorage.getItem('hmr-session');
-      if (!sessionId) { sessionId = 'web-' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('hmr-session', sessionId); }
+      if (!sessionId) {
+        sessionId = 'web-' + crypto.randomUUID();
+        localStorage.setItem('hmr-session', sessionId);
+      }
       let busy = false, historyAdded = false;
 
       // Collapse sidebar by default on mobile
@@ -449,7 +469,7 @@ const LOGO = '/assets/hmr-avatar.png';
         main.classList.remove('has-chat');
         stage.querySelector('.hero').after(dock);
         // fresh memory thread
-        sessionId = 'web-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        sessionId = 'web-' + crypto.randomUUID();
         localStorage.setItem('hmr-session', sessionId);
         historyAdded = false;
         input.value = ''; autosize(); input.focus();
@@ -473,19 +493,98 @@ const LOGO = '/assets/hmr-avatar.png';
         return bubble;
       }
 
-      // Minimal, safe markdown → HTML (bold, lists, links, line breaks).
-      function esc(s){ return s.replace(/[&<>]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[c])); }
-      function md(text) {
-        let s = esc(text)
-          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-        const lines = s.split('\n'); let out = '', inList = false;
-        for (const ln of lines) {
-          if (/^\s*[-*]\s+/.test(ln)) { if (!inList){ out+='<ul>'; inList=true; } out += '<li>' + ln.replace(/^\s*[-*]\s+/, '') + '</li>'; }
-          else { if (inList){ out+='</ul>'; inList=false; } if (ln.trim()) out += '<p>' + ln + '</p>'; }
+      // Safe HTML escaping
+      function esc(s) {
+        return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      }
+
+      // Structured markdown → HTML with code block, table, and inline-code support
+      function md(raw) {
+        const lines = raw.split('\n');
+        let out = '', inUl = false, inOl = false, inPre = false, preAcc = '';
+
+        function closeLists() {
+          if (inUl) { out += '</ul>'; inUl = false; }
+          if (inOl) { out += '</ol>'; inOl = false; }
         }
-        if (inList) out += '</ul>';
+
+        for (let i = 0; i < lines.length; i++) {
+          const ln = lines[i];
+
+          // fenced code block
+          if (/^```/.test(ln)) {
+            if (!inPre) {
+              closeLists();
+              inPre = true; preAcc = '';
+              out += '<pre><code>';
+            } else {
+              out += esc(preAcc) + '</code></pre>';
+              inPre = false; preAcc = '';
+            }
+            continue;
+          }
+          if (inPre) { preAcc += (preAcc ? '\n' : '') + ln; continue; }
+
+          // headings
+          const hm = ln.match(/^(#{1,3})\s+(.+)/);
+          if (hm) {
+            closeLists();
+            const lvl = Math.min(hm[1].length + 2, 5);
+            out += `<h${lvl}>${inline(hm[2])}</h${lvl}>`;
+            continue;
+          }
+
+          // unordered list
+          if (/^\s*[-*]\s+/.test(ln)) {
+            if (inOl) { out += '</ol>'; inOl = false; }
+            if (!inUl) { out += '<ul>'; inUl = true; }
+            out += '<li>' + inline(ln.replace(/^\s*[-*]\s+/, '')) + '</li>';
+            continue;
+          }
+
+          // ordered list
+          const olm = ln.match(/^\s*\d+\.\s+(.*)/);
+          if (olm) {
+            if (inUl) { out += '</ul>'; inUl = false; }
+            if (!inOl) { out += '<ol>'; inOl = true; }
+            out += '<li>' + inline(olm[1]) + '</li>';
+            continue;
+          }
+
+          // table row
+          if (/^\|/.test(ln)) {
+            // separator row — skip
+            if (/^\|[\s|:-]+\|$/.test(ln)) continue;
+            closeLists();
+            const cells = ln.replace(/^\||\|$/g, '').split('|');
+            // header row is the one immediately followed by the --- separator
+            const tag = /^\|[\s|:-]+\|$/.test(lines[i + 1] || '') ? 'th' : 'td';
+            out += '<tr>' + cells.map(c => `<${tag}>${inline(c.trim())}</${tag}>`).join('') + '</tr>';
+            continue;
+          }
+
+          closeLists();
+          if (ln.trim() === '') { out += ''; continue; }
+          out += '<p>' + inline(ln) + '</p>';
+        }
+
+        if (inPre) out += esc(preAcc) + '</code></pre>';
+        if (inUl) out += '</ul>';
+        if (inOl) out += '</ol>';
+
+        // wrap bare <tr> in <table>
+        out = out.replace(/(<tr>[\s\S]*?<\/tr>)+/g, m => '<table>' + m + '</table>');
+
         return out;
+      }
+
+      function inline(s) {
+        return esc(s)
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/`([^`]+)`/g, '<code>$1</code>')
+          // only allow https:// links — no javascript: possible
+          .replace(/\[([^\]]+)\]\((https:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
       }
 
       const MAX_INPUT_CHARS = 2000;
@@ -511,25 +610,54 @@ const LOGO = '/assets/hmr-avatar.png';
             body: JSON.stringify({ question: text, sessionId })
           });
 
+          if (!res.ok) {
+            const msg = res.status === 429
+              ? 'درخواست‌های زیاد. لطفاً چند لحظه صبر کن.'
+              : res.status >= 500
+                ? 'سرور در حال حاضر در دسترس نیست. دوباره تلاش کن.'
+                : 'خطا در ارتباط با سرور.';
+            b.innerHTML = '<span class="msg-error">' + msg + '</span>';
+            return;
+          }
+
           const ct = res.headers.get('content-type') || '';
           if (ct.includes('text/event-stream') && res.body) {
-            const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = '';
-            for (;;) {
+            const reader = res.body.getReader(); const dec = new TextDecoder();
+            // buf accumulates across network chunks — fixes split-chunk JSON bug
+            let buf = '';
+
+            outer: for (;;) {
               const { value, done } = await reader.read(); if (done) break;
               buf += dec.decode(value, { stream: true });
-              const parts = buf.split('\n\n'); buf = parts.pop();
+
+              // SSE events are separated by double newline
+              const parts = buf.split('\n\n'); buf = parts.pop(); // keep incomplete tail
+
               for (const part of parts) {
-                const line = part.split('\n').find(l => l.startsWith('data:'));
-                if (!line) continue;
-                const payload = line.slice(5).trim();
-                if (payload === '[DONE]') continue;
-                try {
-                  const ev = JSON.parse(payload);
-                  if (ev.event === 'token' && ev.data) { acc += ev.data; b.innerHTML = md(acc); messages.scrollTop = messages.scrollHeight; }
-                  else if (ev.event === 'error') { throw new Error(ev.data || 'stream error'); }
-                } catch (_) { /* ignore non-JSON keepalives */ }
+                for (const line of part.split('\n')) {
+                  if (!line.startsWith('data:')) continue;
+                  const payload = line.slice(5).trim();
+                  if (payload === '[DONE]') break outer;
+                  try {
+                    const ev = JSON.parse(payload);
+                    if (ev.event === 'token' && ev.data) { acc += ev.data; b.innerHTML = md(acc); messages.scrollTop = messages.scrollHeight; }
+                    else if (ev.event === 'error') { throw new Error(ev.data || 'stream error'); }
+                  } catch (_) { /* non-JSON keepalive — ignore */ }
+                }
               }
             }
+
+            // flush remaining buffer
+            if (buf.trim()) {
+              const line = buf.split('\n').find(l => l.startsWith('data:'));
+              if (line) {
+                try {
+                  const ev = JSON.parse(line.slice(5).trim());
+                  if (ev.event === 'token' && ev.data) { acc += ev.data; b.innerHTML = md(acc); }
+                } catch (_) {}
+              }
+            }
+
             if (!acc) { b.innerHTML = md('پاسخی دریافت نشد. لطفاً دوباره تلاش کن.'); }
           } else {
             const data = await res.json();
@@ -537,11 +665,10 @@ const LOGO = '/assets/hmr-avatar.png';
             b.innerHTML = md(acc);
           }
         } catch (err) {
-          const isTimeout = err instanceof DOMException && err.name === 'AbortError';
-          const msg = isTimeout
-            ? 'زمان انتظار تمام شد. لطفاً دوباره تلاش کن.'
-            : 'در حال حاضر به مشکل برخوردم. چند لحظه صبر کن و دوباره ارسال کن.';
-          b.innerHTML = `<span style="color:var(--hmr-pink,#f06)">${msg}</span>`;
+          const isAbort = err && err.name === 'AbortError';
+          b.innerHTML = '<span class="msg-error">'
+            + (isAbort ? 'اتصال قطع شد.' : 'در حال حاضر به مشکل برخوردم. اینترنت را بررسی کن.')
+            + '</span>';
         } finally {
           busy = false; autosize(); input.focus();
           messages.scrollTop = messages.scrollHeight;

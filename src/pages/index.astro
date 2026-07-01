@@ -1,7 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'همر',
+  url: 'https://hmrbot.com',
+  inLanguage: 'fa',
+};
 ---
 <Layout title="همر | هوش مصنوعی موبایل">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
   <style>
     .hero { text-align: center; padding: 80px 0 64px; }
     .hero h1 { font-size: clamp(2.3rem,6vw,4rem); line-height:1.08; font-weight:700; margin-bottom:20px; }

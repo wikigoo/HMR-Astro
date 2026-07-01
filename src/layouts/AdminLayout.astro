@@ -1,0 +1,67 @@
+---
+import '../styles/styles.css';
+
+export interface Props {
+  title: string;
+  showNav?: boolean;
+}
+const { title, showNav = true } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} — پنل مدیریت همر</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    body {
+      background: var(--surface-page);
+      color: var(--text-body);
+      font-family: var(--font-fa);
+      direction: rtl;
+      min-height: 100vh;
+    }
+    .admin-wrap { max-width: 960px; margin: 0 auto; padding: 24px; }
+    .admin-nav {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+      padding: 16px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 28px;
+    }
+    .admin-nav a { color: var(--text-secondary); text-decoration: none; font-size: .9rem; padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+    .admin-nav a:hover { color: var(--hmr-cyan); background: var(--surface-well); }
+    .admin-nav .brand { font-weight: 700; color: var(--hmr-cyan); margin-inline-end: auto; }
+    .admin-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    h1 { font-size: 1.5rem; margin-bottom: 6px; }
+    label { display: block; font-size: .85rem; color: var(--text-secondary); margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,.03); color: var(--text-body); font: inherit; margin-bottom: 14px;
+    }
+    button {
+      cursor: pointer; font: inherit; font-weight: 600; padding: 10px 22px;
+      border: 0; border-radius: 10px; background: var(--hmr-cyan); color: var(--hmr-on-accent);
+    }
+    .error { color: var(--hmr-danger); font-size: .85rem; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: right; padding: 10px 8px; border-bottom: 1px solid var(--border-hairline); font-size: .9rem; }
+    th { color: var(--text-secondary); font-weight: 600; }
+    a.link { color: var(--hmr-cyan); text-decoration: none; }
+    a.link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    {showNav && (
+      <nav class="admin-nav">
+        <span class="brand">پنل مدیریت HMR</span>
+        <a href="/admin">داشبورد</a>
+        <a href="/admin/blog">بلاگ</a>
+        <a href="/admin/chatbot">چت‌بات</a>
+        <a href="/api/admin/logout">خروج</a>
+      </nav>
+    )}
+    <slot />
+  </div>
+</body>
+</html>
