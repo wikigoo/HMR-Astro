@@ -2,9 +2,6 @@
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getCollection } from 'astro:content';
 
-// NOTE: this collection uses the `glob` loader, so the entry identifier is
-// `post.id` (derived from the filename), not `post.slug` -- there is no
-// `slug` field on entries here.
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
@@ -12,11 +9,21 @@ const posts = (await getCollection('blog')).sort(
 <AdminLayout title="بلاگ">
   <h1>مدیریت بلاگ</h1>
   <p style="color:var(--text-secondary); margin-bottom:24px;">
-    مقالات به‌صورت خودکار توسط پایپ‌لاین هوش مصنوعی (<code>scripts/blog_generator.py</code>) تولید و مستقیماً روی
-    GitHub منتشر می‌شوند. این صفحه فقط برای مشاهده است — ویرایش/حذف باید از طریق مخزن گیت‌هاب انجام شود.
+    مقالات به‌صورت خودکار توسط پایپ‌لاین هوش مصنوعی (<code>scripts/blog_generator.py</code>) تولید و روی
+    GitHub منتشر می‌شوند. پس از انتشار، سایت خودکار redeploy می‌شود.
   </p>
 
+  <div class="admin-card" style="margin-bottom:20px;">
+    <h2 style="margin-bottom:10px;">تولید مقاله جدید</h2>
+    <p style="color:var(--text-secondary); font-size:.9rem; margin-bottom:16px;">
+      یک workflow dispatch روی شاخه main اجرا می‌شود. پس از ۳–۵ دقیقه مقاله روی سایت ظاهر می‌شود.
+    </p>
+    <button id="trigger-btn" type="button">▶ اجرای تولید مقاله</button>
+    <p id="trigger-status" style="margin-top:12px; font-size:.9rem; display:none;"></p>
+  </div>
+
   <div class="admin-card">
+    <h2 style="margin-bottom:14px;">همه مقالات ({posts.length})</h2>
     <table>
       <thead>
         <tr><th>عنوان</th><th>محور</th><th>تاریخ انتشار</th><th></th></tr>
@@ -34,3 +41,37 @@ const posts = (await getCollection('blog')).sort(
     </table>
   </div>
 </AdminLayout>
+
+<script>
+  const btn = document.getElementById('trigger-btn') as HTMLButtonElement;
+  const status = document.getElementById('trigger-status') as HTMLParagraphElement;
+
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    btn.textContent = 'در حال ارسال…';
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/admin/blog-trigger', { method: 'POST' });
+      const json: { ok?: boolean; error?: string } = await res.json();
+
+      if (json.ok) {
+        btn.textContent = '✅ ارسال شد';
+        status.style.color = 'var(--hmr-cyan)';
+        status.textContent = 'GitHub Actions در حال اجرا است — چند دقیقه صبر کن.';
+      } else {
+        btn.textContent = '▶ اجرای تولید مقاله';
+        btn.disabled = false;
+        status.style.color = 'var(--hmr-danger)';
+        status.textContent = 'خطا: ' + (json.error ?? 'ناشناخته');
+      }
+    } catch {
+      btn.textContent = '▶ اجرای تولید مقاله';
+      btn.disabled = false;
+      status.style.color = 'var(--hmr-danger)';
+      status.textContent = 'خطای شبکه — دوباره تلاش کن.';
+    }
+
+    status.style.display = 'block';
+  });
+</script>

@@ -10,7 +10,10 @@ export const POST: APIRoute = async ({ request, session, redirect }) => {
   }
 
   const ADMIN_USERNAME: string = (env as any).ADMIN_USERNAME ?? '';
-  const ADMIN_PASSWORD: string = (env as any).ADMIN_PASSWORD ?? '';
+  // KV-stored password (set via /admin/settings) takes precedence over the env-var secret
+  const kv = (env as any).SESSION as KVNamespace | undefined;
+  const kvPassword: string | null = kv ? await kv.get('_cfg_admin_password') : null;
+  const ADMIN_PASSWORD: string = kvPassword ?? ((env as any).ADMIN_PASSWORD ?? '');
 
   const data = await request.formData();
   const username = String(data.get('username') ?? '');
